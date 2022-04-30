@@ -11,7 +11,7 @@ import theme from "../src/admin/theme/theme";
 import createEmotionCache from "../src/admin/createEmotionCache";
 import FullLayout from "../src/admin/layouts/FullLayout";
 import "../styles/style.css";
-import '../styles/globals.css'
+import '../styles/globals.scss'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -21,7 +21,7 @@ export default function MyApp(props) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Flexy NextJs Starter kit page</title>
+        <title>School Managements</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       {router.asPath.split('/')[1] === 'admin' ? (
