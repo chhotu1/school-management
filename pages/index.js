@@ -1,7 +1,10 @@
 
+import {SliderImages} from '../src/web-app/components'
 export default function Index() {
   return (
-    <p className="test">Home page</p>
+    <>
+    <SliderImages/>
+    </>
  
   );
 }

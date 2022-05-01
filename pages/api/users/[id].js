@@ -3,6 +3,7 @@
 import { apiHandler } from '../../../src/Helpers/api/api-handler';
 import Helpers from '../../../src/Helpers';
 import { jwtMiddleware } from '../../../src/Helpers/api/jwt-middleware';
+import User from '../../../src/Models/User'
 export default apiHandler({
     get: getById,
     put: update,
@@ -14,7 +15,7 @@ async function getById(req, res) {
     if (!req.query.id) {
         return res.json({ status: false, success: false, data: '', message: "User id can not be empty " });
     }
-    await Helpers.User.findById(req.query.id).then(data => {
+    await User.findById(req.query.id).then(data => {
         if (data)
             return res.json({ status: true, success: true, statusCode: 200, data: data, message: 'User Profile data' });
         return res.json({ status: false, success: true, statusCode: 200, data: '', message: 'User Not Exists' });
@@ -31,7 +32,7 @@ async function update(req, res) {
     if (!userId) {
         return res.json({ status: false, success: false, data: '', message: "User id can not be empty " });
     }
-    await Helpers.User.findById(userId).then(data => {
+    await User.findById(userId).then(data => {
         if (data)
             return res.json({ status: true, success: true, statusCode: 200, data: data, message: 'User Profile data' });
         return res.json({ status: false, success: true, statusCode: 200, data: '', message: 'User Not Exists' });
@@ -45,7 +46,7 @@ async function _delete(req, res) {
     if (!req.query.id) {
         return res.json({ status: false, success: false, data: '', message: "Users content can not be empty" + req.query.id });
     }
-    await Helpers.User.findByIdAndRemove(req.query.id)
+    await User.findByIdAndRemove(req.query.id)
         .then(user => {
             if (!user) {
                 return res.json({ status: false, success: false, data: '', message: "Users not found with id " + req.query.id });
