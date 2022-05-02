@@ -11,6 +11,7 @@ import theme from "../src/admin/theme/theme";
 import createEmotionCache from "../src/admin/createEmotionCache";
 import FullLayout from "../src/admin/layouts/FullLayout";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/style.css";
 import '../styles/globals.scss'
 import { Footer, Header } from "../src/web-app/components";

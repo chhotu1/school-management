@@ -1,51 +1,43 @@
 import Image from "next/image";
-import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { Breadcrumb } from '../src/web-app/components';
-
 import Helpers from "../src/Helpers";
 const Register = () => {
+    
     return (
         <>
             <Breadcrumb page="Register" />
-            <Container className="mt-4">
-                <Row>
-                    <Col>
-                        <Card>
-                            <Form className="p-3 pb-4">
-                                <Form.Group className="mb-3" controlId="name">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter name" />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="phone">
-                                    <Form.Label>Phone Number</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter phone number" />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
-                                </Form.Group>
-                                <Button variant="primary" type="submit">
-                                    Submit
-                                </Button>
-                            </Form>
-                        </Card>
-                    </Col>
-                    <Col>
+            <div className="container mt-4">
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Name</label>
+                            <input type="text" className="form-control" id="name" placeholder="Name" />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="phone" className="form-label">Phone</label>
+                            <input type="text" className="form-control" id="phone" placeholder="Phone" />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+                            <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input type="password" className="form-control" id="password" placeholder="********" />
+                        </div>
+
+                    </div>
+                    <div className='col-md-6'>
                         <Image
                             src={Helpers.Images.bradcome}
                             alt="Picture of the author"
-                            height={475}
+                            height={880}
                             className="d-block w-100"
                             layout="responsive"
                         />
-                    </Col>
-                </Row>
-
-            </Container>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

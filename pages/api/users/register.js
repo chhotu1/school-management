@@ -7,12 +7,12 @@ export default async (req, res) => {
     switch (method) {
         case 'POST':
             try {
-               const {error,value}= Validation.registerValidation(req.body);
+               const {error,value}= Helpers.Validation.registerValidation(req.body);
                if(error){
-                   var errorsData=[];
-                   error.details.map((item)=>{
-                       errorsData.push({name:item.context.key,'message':item.message})
-                   })
+                //    var errorsData=[];
+                //    error.details.map((item)=>{
+                //        errorsData.push({name:item.context.key,'message':item.message})
+                //    })
                     return res.json({
                         message: "Validation error",
                         status:false,
@@ -45,7 +45,7 @@ export default async (req, res) => {
                     }
                 );
             } catch (error) {
-                return res.json({ status: false,data:error });
+                return res.json({ status: false,data:error.message });
             }
             break;
         default:

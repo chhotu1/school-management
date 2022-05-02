@@ -1,8 +1,11 @@
 import React from 'react'
 import Link from 'next/link';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { ToastContainer } from "react-toastify";
+
 const Header = () => {
 	return (
+		<>
 		<Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark" className="p-2">
 		<Link href='/' passHref>
 			<Navbar.Brand>School Managements</Navbar.Brand>
@@ -27,6 +30,8 @@ const Header = () => {
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>
+	<ToastContainer />
+	</>
 	)
 }
 
