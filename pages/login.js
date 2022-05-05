@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import Router from 'next/router'
 import { toast } from 'react-toastify';
 import Helpers from '../src/Helpers';
 import { Breadcrumb } from '../src/web-app/components';
@@ -45,6 +46,7 @@ const Login = () => {
                     theme: "colored",
                   });
                   Helpers.StorageService.setAccessToken(response.data.token);
+                  Router.push('/admin');
             }else{
                 
                 toast.error(response.data.message, {
