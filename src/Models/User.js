@@ -26,6 +26,14 @@ const UserSchema = new mongoose.Schema({
         default: 1
     },
     address:String,
+    country:String,
+    state:String,
+    pincode:Number,
+    city:String,
+    gender:String,
+    class:String,
+    father:String,
+    dob:String,
     status: {
         type: Number,
         default: 1

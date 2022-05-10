@@ -63,7 +63,7 @@ const Employee = () => {
     return (
         <Grid container spacing={0}>
             <Grid item xs={12} lg={12}>
-                <BaseCard title="All Employee" link="employee/add" linkTitle="Add Employee">
+                <BaseCard title="All student" link="student/add" linkTitle="Add student">
 
                     <div style={{ height: 400, width: '100%' }}>
                         <DataGrid

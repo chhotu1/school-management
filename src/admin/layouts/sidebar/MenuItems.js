@@ -10,6 +10,11 @@ const Menuitems = [
     href: "/employee",
   },
   {
+    title: "Students",
+    icon: "users",
+    href: "/student",
+  },
+  {
     title: "Buttons",
     icon: "disc",
     href: "/buttons",

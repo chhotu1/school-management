@@ -28,7 +28,7 @@ const BaseCard = (props) => {
           {props.title}
           </Typography>
         {props.link ? (
-          <Link href="/admin/employee/add">
+          <Link href={`/admin/${props.link}`}>
             {props.linkTitle}
           </Link>
         ) : null}
