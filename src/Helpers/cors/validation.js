@@ -12,7 +12,7 @@ function registerValidation(data) {
         password: Joi.string().pattern(new RegExp(Helpers.Regex.PASSWORD_REGEX)).required(),
         phone: Joi.number().integer().min(1000000000).message("Invalid mobile number").max(9999999999).message("Invalid mobile number"),
         name:Joi.string().required(),
-        address:Joi.string(),
+        // address:Joi.string(),
     });
     return registerSchema.validate(data,options)
 }

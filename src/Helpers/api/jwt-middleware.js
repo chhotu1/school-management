@@ -4,7 +4,7 @@ import { errorHandler } from "./error-handler";
 
 export { jwtMiddleware };
 
-function jwtMiddleware(req, res) {
+function jwtMiddleware(req, res,next) {
     const token = req.headers.token;
     if (!token) return res.json({ message: "Auth Error", status: false });
     try {
@@ -13,7 +13,7 @@ function jwtMiddleware(req, res) {
         // console.log(req.user,'================')
         // if (user_role !== config.ROLE.ADMIN)
             // return res.json({ message: "You are not Authorized", status: false });
-        // next();
+        next();
     } catch (err) {
         errorHandler(err, res);
         // res.json({ message: "Invalid Token", status: false });

@@ -5,6 +5,7 @@ import {
   Container,
   Box,
 } from "@mui/material";
+import {ToastContainer} from 'react-toastify'
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Footer from "./footer/Footer";
@@ -60,6 +61,7 @@ const FullLayout = ({ children }) => {
           <Footer />
         </Container>
       </PageWrapper>
+      <ToastContainer/>
     </MainWrapper>
   );
 };

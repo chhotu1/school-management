@@ -36,12 +36,12 @@ const Add = () => {
         console.log(form,'data')
         Helpers.AuthServices.register(form)
         .then((response) => {
-            console.log(response,'response')
+            console.log(response.data.status,'response')
             if(response.data.status===true){
                 toast.success("Student Added Succssfuly", {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "colored",
-                  });
+                });
             }else{
                 toast.error(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,

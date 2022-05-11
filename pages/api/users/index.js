@@ -7,7 +7,8 @@ export default apiHandler({
 });
 
 async function getUsers(req, res) {
-    // await jwtMiddleware(req, res);
+    // await jwtMiddleware;
+    console.log(req.headers.token,'===========');
     User.find({}, function (err, users) {
         if (err) {
             return res.json({ status: false, success: false, statusCode: 500, errorMessage: err });
