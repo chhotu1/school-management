@@ -2,8 +2,12 @@
 
 import * as React from "react";
 import PropTypes from "prop-types";
-import { useRouter } from 'next/router'
 import Head from "next/head";
+import { Provider } from "react-redux";
+import { useRouter } from "next/router";
+import { createWrapper } from "next-redux-wrapper";
+import store from "../src/redux";
+
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
@@ -18,10 +22,12 @@ import { Footer, Header } from "../src/web-app/components";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
-export default function MyApp(props) {
+ function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const router = useRouter()
   return (
+
+      <Provider store={store}>
     <CacheProvider value={emotionCache}>
       <Head>
         <title>School Managements</title>
@@ -45,6 +51,7 @@ export default function MyApp(props) {
 
 
     </CacheProvider>
+    </Provider>
   );
 }
 
@@ -53,4 +60,9 @@ MyApp.propTypes = {
   emotionCache: PropTypes.object,
   pageProps: PropTypes.object.isRequired,
 };
+
+const makeStore = () => store;
+const wrapper = createWrapper(makeStore);
+
+export default wrapper.withRedux(MyApp);
 

@@ -31,13 +31,13 @@ export default withAuth;
 //We need to verify the token.
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Helper from "../cors/helper";
+import Helpers from "../Helpers";
 const withAuth = (WrappedComponent) => {
   return (props) => {
     const Router = useRouter();
     const [verified, setVerified] = useState(false);
     useEffect(async () => {
-      const accessToken = Helper.StorageService.getAccessToken();
+      const accessToken = Helpers.StorageService.getAccessToken();
       if (!accessToken) {
         Router.replace("/");
         setTimeout(() => {
@@ -45,27 +45,12 @@ const withAuth = (WrappedComponent) => {
         }, 1500);
       } else {
         getUser();
+        setVerified(true);
       }
     }, []);
 
     const getUser = () => {
-      Helper.UserApi.currentUser()
-        .then((response) => {
-          setVerified(true);
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-          if (error.response) {
-            if (error.response.data.message === "invalid or expired jwt") {
-              setVerified(false);
-              localStorage.clear();
-              Router.replace("/");
-              setTimeout(() => {
-                document.getElementsByClassName("signIn-text")[0].click();
-              }, 1000);
-            }
-          }
-        });
+      
     };
 
     if (verified) {

@@ -37,7 +37,7 @@ function buttonSpinner(show) {
   return (
     <>
       {show ? (
-        <button className="spinner-button">
+        <div className="spinner-button">
           <Spinner
             as="span"
             animation="border"
@@ -45,7 +45,7 @@ function buttonSpinner(show) {
             role="status"
             aria-hidden="true"
           />          
-        </button>
+        </div>
       ) : null}
     </>
   );

@@ -34,6 +34,7 @@ const UserSchema = new mongoose.Schema({
     class:String,
     father:String,
     dob:String,
+    qualification:String,
     status: {
         type: Number,
         default: 1
