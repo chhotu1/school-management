@@ -22,7 +22,6 @@ export const userSlice = createSlice({
   reducers: {
     inputChange:(state,action)=>{
         const key = Object.keys(action.payload)[0];
-        console.log(key)
         return {
             ...state,
             user: { ...state.user, [key]: action.payload[key] },

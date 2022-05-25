@@ -54,7 +54,6 @@ export default async (req, res) => {
                     }
                 );
             } catch (error) {
-                console.log(error)
                 return res.json({ status: false, data: 'error' });
             }
             break;

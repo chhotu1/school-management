@@ -9,12 +9,9 @@ const Employee = () => {
     useEffect(()=>{
         getStudent();
     },[])
-    console.log('response','-------------')
     const getStudent =()=>{
-        console.log('response','-------sss------')
         Helpers.UserServices.getAll()
         .then((response) => {
-            console.log(response,'-------------')
             if(response.data.status===true){
                 setDatas(response.data.data);
             }else{
@@ -25,7 +22,6 @@ const Employee = () => {
             }
         })
         .catch(function (error) {
-            console.log(error,'------sss-------')
           if(error.response){
             toast.error(error.response.data.message, {
               position: toast.POSITION.TOP_RIGHT,
