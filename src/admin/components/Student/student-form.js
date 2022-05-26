@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Country, State, City } from 'country-state-city';
-import { useDispatch } from 'react-redux';
-import { inputChange } from '../../../redux/reducers/StudentReducer';
 const className = ['one', 'two', 'three'];
 const Studentform = (props) => {
     const { handleChange, student } = props;
@@ -9,8 +7,6 @@ const Studentform = (props) => {
     const [states, setStates] = useState([]);
     const [cities, setCity] = useState([]);
     const [countryCode, setCountryCode] = useState('IN')
-    const dispatch = useDispatch();
-
 
     useEffect(() => {
         getCountry();
@@ -18,22 +14,19 @@ const Studentform = (props) => {
 
     const getCountry = () => {
         setCountry(Country.getAllCountries())
-
     }
-
+    
     const getState = (e) => {
         const { value, name } = e.target;
-        // console.log('value',Country.getCountryByCode(value).name)
-        dispatch(inputChange({ ['country']: Country.getCountryByCode(value).name }));
+        props.countryhandleChange('country', Country.getCountryByCode(value).name)
         setCountryCode(value)
         setStates(State.getStatesOfCountry(value))
     }
 
     const getCity = (e) => {
         const { value, name } = e.target;
-        // console.log('state name',State.getStateByCodeAndCountry(value,countryCode).name)
         setCity(City.getCitiesOfState(countryCode, value));
-        dispatch(inputChange({ ['state']: State.getStateByCodeAndCountry(value, countryCode).name }));
+        props.countryhandleChange('state', State.getStateByCodeAndCountry(value, countryCode).name)
     }
 
     return (
@@ -71,7 +64,7 @@ const Studentform = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Student Photo</label>
-                        <input className="form-control" type="file" id="formFile"/>
+                        <input className="form-control" type="file" id="photo" name="photo" accept='image/*'  onChange={handleChange}/>
                     </div>
 
 
@@ -83,7 +76,7 @@ const Studentform = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Father Phone</label>
-                        <input type="text" className="form-control" placeholder="Phone" name="phone" onChange={handleChange} value={student.phone ? student.phone : ''} />
+                        <input type="text" className="form-control" placeholder="Phone" name="father_mobile" onChange={handleChange} value={student.father_mobile ? student.father_mobile : ''} />
                     </div>
 
                     <div className="mb-3">
@@ -92,7 +85,7 @@ const Studentform = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Father occupation</label>
-                        <input type="text" className="form-control" placeholder="Father Name" name="occupation" onChange={handleChange} value={student.occupation ? student.occupation : ''} />
+                        <input type="text" className="form-control" placeholder="Father occupation" name="occupation" onChange={handleChange} value={student.occupation ? student.occupation : ''} />
                     </div>
 
                 </div>
@@ -128,7 +121,7 @@ const Studentform = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Address</label>
-                        <input type="text" className="form-control" placeholder="Address" />
+                        <input type="text" className="form-control" placeholder="Address" name="address" onChange={handleChange} value={student.address ? student.address : ''} />
                     </div>
                 </div>
                 <div className='col-md-6'>
@@ -147,7 +140,7 @@ const Studentform = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Pincode</label>
-                        <input type="text" className="form-control" placeholder="Pincode" />
+                        <input type="text" className="form-control" placeholder="Pincode" onChange={handleChange} name="pincode" value={student.pincode ? student.pincode : ''} />
                     </div>
                 </div>
             </div>

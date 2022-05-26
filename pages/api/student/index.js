@@ -3,7 +3,7 @@ import { jwtMiddleware } from "../../../src/Helpers/api/jwt-middleware";
 import Student from "./../../../src/Models/Student";
 import { IncomingForm } from 'formidable'
 import { promises as fs } from 'fs'
-
+import dbConnect from "../../../src/Helpers/cors/dbConnect";
 var mv = require('mv');
 
 export const config = {
@@ -12,14 +12,13 @@ export const config = {
     }
 };
 
-
 export default apiHandler({
     get: getData,
     post: add,
 });
-
+dbConnect();
 async function getData(req, res) {
-    Student.find()
+    await Student.find()
         .then((data) => {
             return res.json({ status: true, success: true, data: data });
         })
@@ -33,7 +32,7 @@ async function add(req, res) {
     let userId = req.user._id;
     const data = await new Promise((resolve, reject) => {
         const form = new IncomingForm()
-        form.parse(req, (err, fields, files) => {
+        form.parse(req, async(err, fields, files) => {
             if (err) return reject(err)
             let photo = '';
             if (files.photo) {
@@ -46,8 +45,8 @@ async function add(req, res) {
                 });
             }
 
-            let student_data = new Student({
-                title: fields.name,
+            let student_data = {
+                name: fields.name,
                 email:fields.email,
                 address:fields.address,
                 country:fields.country,
@@ -63,11 +62,11 @@ async function add(req, res) {
                 occupation:fields.occupation,
                 photo: photo,
                 created_by: userId,
-            });
-            student_data.save();
+            };
+            const student = await Student.create(student_data);
             return res.status(200).json({
                 status: true,
-                data: student_data,
+                data: student,
                 message: "Record added successfully",
             });
         })

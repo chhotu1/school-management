@@ -1,54 +1,51 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react';
+import Router  from 'next/router';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
     Grid,
 } from "@mui/material";
 import BaseCard from "../../../src/admin/components/baseCard/BaseCard";
 import Studentform from '../../../src/admin/components/Student/student-form';
-import { useDispatch,useSelector } from 'react-redux';
-import { inputChange } from '../../../src/redux/reducers/StudentReducer';
+import { setStudentDefaults,handleStudentChange, createStudent } from '../../../src/redux/actions/StudentActions';
 
-const Add = () => {
-    const dispatch = useDispatch();
-    const student = useSelector((state)=>state.student.student);
-    const handleChange =async(e)=>{
-        const { name, value } = e.target;
-        await dispatch(inputChange({ [name]: value }));
+const Add = (props) => {
+    const handleChange =(event)=>{
+        if(event.target.name==='photo'){
+            if (event.target.files && event.target.files.length > 0) {
+                props.handleStudentChange("photo", event.target.files[0]);
+            }
+        }else{
+            props.handleStudentChange(event.target.name, event.target.value);
+        }
     }
+
+    useEffect(()=>{
+        props.setStudentDefaults();
+    },[])
 
     const handleSubmit =(e) => {
         e.preventDefault();
-        console.log(student,'data')
-        /*
-        Helpers.AuthServices.register(form)
-        .then((response) => {
-            if(response.data.status===true){
-                toast.success("Student Added Succssfuly", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored",
-                });
-            }else{
-                toast.error(response.data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored",
-                });
-            }
-        })
-        .catch(function (error) {
-          if(error.response){
-            toast.error(error.response.data.message, {
+        
+        props.createStudent(props.student.student, function () {
+            Router.push("/admin/student")
+            toast.success("New Student Added Successfully", {
               position: toast.POSITION.TOP_RIGHT,
               theme: "colored",
-            });
-          }
+            })
         });
-        */
     }
+
+    const countryhandleChange =(name,value)=>{
+        props.handleStudentChange(name, value);
+    }
+
     return (
         <Grid container spacing={0}>
             <Grid item xs={12} lg={12}>
                 <BaseCard title="New Student" backArrow="return">
                     <form onSubmit={handleSubmit}>
-                        <Studentform  handleChange={handleChange} student={student}/>
+                        <Studentform  handleChange={handleChange} student={props.student.student} countryhandleChange={countryhandleChange}/>
                         <div className="col-auto">
                             <button type="submit" className="btn btn-primary mb-3">Add new student</button>
                         </div>
@@ -59,4 +56,20 @@ const Add = () => {
     )
 }
 
-export default Add
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+      student: state.student,
+    };
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+        setStudentDefaults: () => dispatch(setStudentDefaults()),
+        handleStudentChange: (field, value) =>dispatch(handleStudentChange(field, value)),
+        createStudent: (payload, cb) => dispatch(createStudent(payload, cb)),
+    };
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)((Add));
+  

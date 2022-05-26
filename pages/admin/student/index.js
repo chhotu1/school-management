@@ -1,43 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Grid } from "@mui/material";
 import BaseCard from '../../../src/admin/components/baseCard/BaseCard';
-import Helpers from '../../../src/Helpers';
 import StudentRows from '../../../src/admin/components/Student/student-rows';
+import { setStudentDefaults,studentList } from '../../../src/redux/actions/StudentActions';
 
-const Student = () => {
-    const [datas,setDatas] = useState([]);
+const Student = (props) => {
     useEffect(()=>{
-        getStudent();
+        props.studentList();
     },[])
-
-    const getStudent =()=>{
-        Helpers.UserServices.getAll()
-        .then((response) => {
-            if(response.data.status===true){
-                setDatas(response.data.data);
-            }else{
-                toast.error(response.data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored",
-                });
-            }
-        })
-        .catch(function (error) {
-          if(error.response){
-            toast.error(error.response.data.message, {
-              position: toast.POSITION.TOP_RIGHT,
-              theme: "colored",
-            });
-          }
-        });
-    }
 
     return (
         <Grid container spacing={0}>
             <Grid item xs={12} lg={12}>
                 <BaseCard title="All student" link="student/add" linkTitle="Add student">
                     <div>
-                        <StudentRows data={datas}/>
+                        <StudentRows data={props.student.students}/>
                     </div>
                 </BaseCard>
             </Grid>
@@ -45,4 +23,21 @@ const Student = () => {
     )
 }
 
-export default Student
+
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+      student: state.student,
+    };
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+        setStudentDefaults: () => dispatch(setStudentDefaults()),
+        studentList: () => dispatch(studentList()),
+    };
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)((Student));
+
+

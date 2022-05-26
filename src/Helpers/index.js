@@ -6,6 +6,7 @@ import AuthServices from "./services/AuthServices";
 import UserServices from "./services/UserServices";
 import Forms from "./Forms";
 import StorageService from "./services/StorageServices";
+import StudentService from "./services/StudentService";
 const STATUS ={
     ACTIVE:1,
     DEACTIVE:2,
@@ -21,7 +22,8 @@ const Helpers ={
     AuthServices,
     Forms,
     StorageService,
-    UserServices
+    UserServices,
+    StudentService
 }
 
 
