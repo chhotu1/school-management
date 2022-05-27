@@ -8,7 +8,6 @@ import {
 import BaseCard from "../../../src/admin/components/baseCard/BaseCard";
 import TeacherForm from '../../../src/admin/components/teacher/TeacherForm';
 import { setStudentDefaults,handleStudentChange, createStudent } from '../../../src/redux/actions/StudentActions';
-
 const Add = (props) => {
     const handleChange =(event)=>{
         if(event.target.name==='photo'){
@@ -19,7 +18,6 @@ const Add = (props) => {
             props.handleStudentChange(event.target.name, event.target.value);
         }
     }
-
     useEffect(()=>{
         props.setStudentDefaults();
     },[])
