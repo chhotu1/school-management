@@ -2,7 +2,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 import Helpers from "./../../../src/Helpers";
 import User from './../../../src/Models/User';
-Helpers.dbConnect();
+
+import dbConnect from "../../../src/Helpers/cors/dbConnect";
+
+dbConnect();
 export default async (req, res) => {
     const { method } = req;
     switch (method) {
@@ -54,7 +57,8 @@ export default async (req, res) => {
                     }
                 );
             } catch (error) {
-                return res.json({ status: false, data: 'error' });
+                console.log(error,'=====')
+                return res.json({ status: false, data: error });
             }
             break;
         default:

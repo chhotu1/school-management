@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 import Helpers from './../../../src/Helpers';
 import User from '../../../src/Models/User'
-Helpers.dbConnect();
+import dbConnect from "../../../src/Helpers/cors/dbConnect";
+dbConnect();
 export default async (req, res) => {
     const { method } = req;
     switch (method) {
