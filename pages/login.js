@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Router from 'next/router'
 import { toast } from 'react-toastify';
 import Helpers from '../src/Helpers';
 import { Breadcrumb } from '../src/web-app/components';
 import { buttonSpinner } from '../src/Share/CommonFunction';
-const Login = () => {
+import { connect } from 'react-redux';
+import { setAuthDefaults } from '../src/redux/actions/AuthActions';
+const Login = (props) => {
+    useEffect(()=>{
+        props.setAuthDefaults();
+    },[])
     const initialForm ={
         email:'',
         password:''
@@ -39,16 +44,17 @@ const Login = () => {
         setIsSpinner(true)
         Helpers.AuthServices.login(form)
         .then((response) => {
-            setIsSpinner(false)
+            // setIsSpinner(false)
             if(response.data.status===true){
+                props.setAuthDefaults();
                 toast.success("Login Succssfuly", {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "colored",
                   });
                   Helpers.StorageService.setAccessToken(response.data.token);
-                  Router.push('/admin');
+                  Router.push('/about');
             }else{
-                
+                setIsSpinner(false)
                 toast.error(response.data.message, {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "colored",
@@ -100,4 +106,17 @@ const Login = () => {
     )
 }
 
-export default Login;
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		auth: state.auth,
+	};
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+	return {
+		setAuthDefaults: () => dispatch(setAuthDefaults()),
+	};
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Navbar, Nav,Button } from 'react-bootstrap';
 import { ToastContainer } from "react-toastify";
-
-const Header = () => {
+import Helpers from '../../Helpers';
+import { setAuthDefaults } from '../../redux/actions/AuthActions';
+import  Router  from 'next/router';
+const Header = (props) => {
+	useEffect(()=>{
+		let token =Helpers.StorageService.getAccessToken();
+		props.setAuthDefaults();
+		console.log('===============',props.auth.isToken)
+	},[props.auth.isToken])
+	const logOut=()=>{
+		localStorage.clear();
+		props.setAuthDefaults();
+		Router.push('/login')
+	}
 	return (
 		<>
 		<Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark" className="p-2">
@@ -20,7 +33,11 @@ const Header = () => {
 					<Nav.Link >Contact</Nav.Link>
 				</Link>
 			</Nav>
-			<Nav>
+			{props.auth.isToken?(
+					
+					<Button variant="outline-success" type="button" onClick={logOut}>Search</Button>
+			):(
+				<Nav>
 				<Link href='/login' passHref>
 					<Nav.Link >Login</Nav.Link>
 				</Link>
@@ -28,6 +45,8 @@ const Header = () => {
 					<Nav.Link >Register</Nav.Link>
 				</Link>
 			</Nav>
+			)}
+		
 		</Navbar.Collapse>
 	</Navbar>
 	<ToastContainer />
@@ -35,4 +54,17 @@ const Header = () => {
 	)
 }
 
-export default Header
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		auth: state.auth,
+	};
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+	return {
+		setAuthDefaults: () => dispatch(setAuthDefaults()),
+	};
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Header);

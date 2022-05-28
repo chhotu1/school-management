@@ -64,5 +64,45 @@ const Forms = {
         return "";
     }
   },
+
+
+
+  studentForm: (name, value) => {
+    switch (name) {
+      case "email":
+        if (!value) return "Email is Required";
+        else if (!Regex.EMAIL_REGEXP.test(value))
+          return "Enter a valid email address";
+        else return "";
+      case "name":
+        if (!value) return "Name is Required";
+        else if (!Regex.FULL_NAME_REGEX.test(value))
+          return "Enter a valid name";
+        else return "";
+      case "country":
+        if (!value) return "Country is Required";
+        else return "";
+      case "state":
+        if (!value) return "State is Required";
+        else return "";
+      case "city":
+        if (!value) return "City is Required";
+        else return "";
+      case "pincode":
+        if (!value) return "Pincode is Required";
+        else return "";
+      case "gender":
+        if (!value) return "Gender is Required";
+        else return "";
+      case "class":
+        if (!value) return "Class is Required";
+        else return "";
+      case "father_name":
+        if (!value) return "Father name is Required";
+        else return "";
+      default:
+        return "";
+    }
+  }
 };
 export default Forms;

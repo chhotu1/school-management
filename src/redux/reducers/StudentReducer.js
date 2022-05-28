@@ -1,3 +1,4 @@
+import Helpers from "../../Helpers";
 import * as StudentTypes from "../actionTypes/StudentTypes";
 const initialState = {
   value: 0,
@@ -26,6 +27,21 @@ const initialState = {
     updated_at: '',
     deleted_at: '',
     occupation: ''
+  },
+  formError:{
+    name: '',
+    email: '',
+    photo: '',
+    country: '',
+    state: '',
+    pincode: '',
+    city: '',
+    gender: '',
+    class: '',
+    father_name: '',
+    father_mobile: '',
+    dob: '',
+    occupation: ''
   }
 }
 
@@ -44,6 +60,8 @@ const StudentReducer = function (state = initialState, action) {
 
     case StudentTypes.HANDLE_STUDENT_CHANGE:
       return handleChange(state, action);
+    case StudentTypes.VALIDATE_STUDENT_FORM:
+      return handleCheckFormValidation(state, action);
     case StudentTypes.CREATE_STUDENTS:
       return {
         ...state,
@@ -89,11 +107,19 @@ const StudentReducer = function (state = initialState, action) {
       return state;
   }
 };
-
+ 
 function handleChange(state, action) {
   return {
     ...state,
     student: { ...state.student, [action.field]: action.data },
+    formError:{...state.formError,[action.field]:Helpers.Forms.studentForm(action.field,action.data)}
+  };
+}
+
+function handleCheckFormValidation(state,action){
+  return {
+    ...state,
+    formError:{...state.formError,...action.data}
   };
 }
 

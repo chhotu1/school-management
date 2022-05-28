@@ -18,8 +18,17 @@ function handleStudentChange(field, value) {
     };
 }
 
+function checkStudentValidation(value) {
+    return function (dispatch, getState) {
+        dispatch({
+            type: StudentTypes.VALIDATE_STUDENT_FORM,
+            data: value
+        });
+    };
+}
+
 function createStudent(payload, cb) {
-    console.log(payload,'payload data')
+
     return function (dispatch, getState) {
         dispatch({
             type: StudentTypes.CREATE_STUDENTS,
@@ -40,6 +49,7 @@ function createStudent(payload, cb) {
             });
     };
 }
+
 
 function studentList() {
     return function (dispatch, getState) {
@@ -64,4 +74,4 @@ function studentList() {
     }
 }
 
-export { setStudentDefaults, handleStudentChange,createStudent,studentList };
+export { setStudentDefaults, handleStudentChange,createStudent,studentList,checkStudentValidation };

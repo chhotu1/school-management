@@ -1,8 +1,14 @@
 import Image from "next/image";
 import { Breadcrumb } from '../src/web-app/components';
 import Helpers from "../src/Helpers";
-const Register = () => {
-    
+import withAuth from "../src/Share/withAuth";
+import { connect } from 'react-redux';
+import { setAuthDefaults } from '../src/redux/actions/AuthActions';
+import { useEffect } from "react";
+const Register = (props) => {
+    useEffect(()=>{
+        props.setAuthDefaults();
+    },[])
     return (
         <>
             <Breadcrumb page="Register" />
@@ -42,4 +48,16 @@ const Register = () => {
     )
 }
 
-export default Register;
+const mapStateToProps = (state, ownProps) => {
+	return {
+		auth: state.auth,
+	};
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+	return {
+		setAuthDefaults: () => dispatch(setAuthDefaults()),
+	};
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Register);

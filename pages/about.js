@@ -1,9 +1,11 @@
-import React from 'react'
-import Image from "next/image";
-import Helpers from '../src/Helpers';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux';
 import { Breadcrumb } from './../src/web-app/components';
-
-const About = () => {
+import { setAuthDefaults } from '../src/redux/actions/AuthActions';
+const About = (props) => {
+  useEffect(()=>{
+    props.setAuthDefaults();
+  },[])
   return (
     <>
     <Breadcrumb page="About us"/>
@@ -11,4 +13,17 @@ const About = () => {
   )
 }
 
-export default About
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		auth: state.auth,
+	};
+  };
+  
+  const mapDispatchToProps = (dispatch) => {
+	return {
+		setAuthDefaults: () => dispatch(setAuthDefaults()),
+	};
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(About);

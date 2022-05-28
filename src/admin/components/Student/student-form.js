@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Country, State, City } from 'country-state-city';
 const className = ['one', 'two', 'three'];
 const Studentform = (props) => {
-    const { handleChange, student } = props;
+    const { handleChange, student,formErrors } = props;
     const [countries, setCountry] = useState([]);
     const [states, setStates] = useState([]);
     const [cities, setCity] = useState([]);
@@ -36,6 +36,7 @@ const Studentform = (props) => {
                     <div className="mb-3">
                         <label className="form-label">Name</label>
                         <input type="text" className="form-control" placeholder="Name" name="name" onChange={handleChange} value={student.name ? student.name : ''} />
+                        {formErrors?.name ? ( <div className="error">{formErrors?.name}</div> ) : null}
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Date Of Birth</label>
@@ -53,6 +54,7 @@ const Studentform = (props) => {
                                 })
                             ) : null}
                         </select>
+                        {formErrors?.class ? ( <div className="error">{formErrors?.class}</div> ) : null}
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Gender</label>
@@ -61,6 +63,7 @@ const Studentform = (props) => {
                             <option>Male</option>
                             <option>Famel</option>
                         </select>
+                        {formErrors?.gender ? ( <div className="error">{formErrors?.gender}</div> ) : null}
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Student Photo</label>
@@ -73,15 +76,18 @@ const Studentform = (props) => {
                     <div className="mb-3">
                         <label className="form-label">Father Name</label>
                         <input type="text" className="form-control" placeholder="Father Name" name="father_name" onChange={handleChange} value={student.father_name ? student.father_name : ''} />
+                        {formErrors?.father_name ? ( <div className="error">{formErrors?.father_name}</div> ) : null}
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Father Phone</label>
                         <input type="text" className="form-control" placeholder="Phone" name="father_mobile" onChange={handleChange} value={student.father_mobile ? student.father_mobile : ''} />
+                        {formErrors?.father_mobile ? ( <div className="error">{formErrors?.father_mobile}</div> ) : null}
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">Father Email</label>
                         <input type="email" className="form-control" placeholder="name@example.com" name="email" onChange={handleChange} value={student.email ? student.email : ''} />
+                        {formErrors?.email ? ( <div className="error">{formErrors?.email}</div> ) : null}
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Father occupation</label>
@@ -105,6 +111,8 @@ const Studentform = (props) => {
                                 })
                             ) : null}
                         </select>
+                        {formErrors?.country ? ( <div className="error">{formErrors?.country}</div> ) : null}
+
                     </div>
                     <div className="mb-3">
                         <label className="form-label">City</label>
@@ -118,6 +126,9 @@ const Studentform = (props) => {
                                 })
                             ) : null}
                         </select>
+                        {formErrors?.city ? ( <div className="error">{formErrors?.city}</div> ) : null}
+
+                        
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Address</label>
@@ -137,10 +148,14 @@ const Studentform = (props) => {
                                 })
                             ) : null}
                         </select>
+                        {formErrors?.state ? ( <div className="error">{formErrors?.state}</div> ) : null}
+
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Pincode</label>
                         <input type="text" className="form-control" placeholder="Pincode" onChange={handleChange} name="pincode" value={student.pincode ? student.pincode : ''} />
+                        {formErrors?.pincode ? ( <div className="error">{formErrors?.pincode}</div> ) : null}
+
                     </div>
                 </div>
             </div>

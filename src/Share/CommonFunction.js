@@ -77,7 +77,17 @@ function convertDate(str) {
   return [date.getFullYear(), mnth, day].join("-");
 }
 
+function CustomLoader() {
+  return (
+    <div className="loader-spinner-wrap">
+      <div className="spinner-border-wrap">
+        <div className="spinner-border"></div>
+      </div>
+    </div>
+  );
+}
 
-export { formateDate, isNumber, buttonSpinner, convertDate, spinner };
+
+export { formateDate, isNumber, buttonSpinner, convertDate, spinner,CustomLoader };
 
 // export default Common;

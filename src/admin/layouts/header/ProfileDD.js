@@ -6,13 +6,13 @@ import {
   Box,
   Menu,
   Typography,
-  Link,
   ListItemButton,
   List,
   ListItemText,
   Button,
   Divider,
 } from "@mui/material";
+import Router from "next/router";
 const ProfileDD = () => {
   const [anchorEl4, setAnchorEl4] = React.useState(null);
 
@@ -23,6 +23,11 @@ const ProfileDD = () => {
   const handleClose4 = () => {
     setAnchorEl4(null);
   };
+
+  const handleLogout=(e)=>{
+    localStorage.clear();
+    Router.push("/login")
+  }
   return (
     <>
       <Button
@@ -105,11 +110,11 @@ const ProfileDD = () => {
           </Box>
           <Divider />
           <Box p={2}>
-            <Link to="/">
-              <Button fullWidth variant="contained" color="primary">
+            
+              <Button fullWidth variant="contained" color="primary" onClick={handleLogout}>
                 Logout
               </Button>
-            </Link>
+           
           </Box>
         </Box>
       </Menu>

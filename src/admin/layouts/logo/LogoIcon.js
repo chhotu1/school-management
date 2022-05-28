@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "@mui/material";
+// import { Link } from "@mui/material";
+import Link from "next/link";
 import Image from "next/image";
 import LogoDark from "../../../assets/images/logos/logo-dark.svg";
 

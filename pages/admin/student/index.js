@@ -4,14 +4,16 @@ import { Grid } from "@mui/material";
 import BaseCard from '../../../src/admin/components/baseCard/BaseCard';
 import StudentRows from '../../../src/admin/components/Student/student-rows';
 import { setStudentDefaults,studentList } from '../../../src/redux/actions/StudentActions';
+import { CustomLoader } from '../../../src/Share/CommonFunction';
+import withAuth from '../../../src/Share/withAuth';
 
 const Student = (props) => {
     useEffect(()=>{
         props.studentList();
     },[])
-
     return (
         <Grid container spacing={0}>
+            {props.student.list_spinner?<CustomLoader/>:null}
             <Grid item xs={12} lg={12}>
                 <BaseCard title="All student" link="student/add" linkTitle="Add student">
                     <div>
@@ -38,6 +40,6 @@ const mapStateToProps = (state, ownProps) => {
     };
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)((Student));
+  export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Student));
 
 
