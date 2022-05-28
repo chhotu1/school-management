@@ -128,3 +128,13 @@ a {
     transform: rotate(360deg) /* rtl:ignore */;
   }
 }
+.dashboard-left{
+  margin-left: 10px;
+}
+
+@media (max-width: 767px) {
+  .dashboard-left{
+    margin-left: 0px;
+    margin-top: 5px;
+  }
+}

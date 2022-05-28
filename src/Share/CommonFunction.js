@@ -87,7 +87,20 @@ function CustomLoader() {
   );
 }
 
+function UserRole(role) {
+  let access = [
+    {role:1,title:'Admin',access:'ADMIN'},
+    {role:2,title:'Teacher',access:'TEACHER'},
+    {role:3,title:'Student',access:'STUDENT'}
+  ];
+  let index = access.findIndex((e)=>e.role===role);
+  if(index!==-1){
+    return access[index].title;
+  }
+  return 'User'
+}
 
-export { formateDate, isNumber, buttonSpinner, convertDate, spinner,CustomLoader };
+
+export { formateDate, isNumber, buttonSpinner, convertDate, spinner,CustomLoader,UserRole };
 
 // export default Common;

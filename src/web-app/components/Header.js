@@ -5,17 +5,34 @@ import { Navbar, Nav,Button } from 'react-bootstrap';
 import { ToastContainer } from "react-toastify";
 import Helpers from '../../Helpers';
 import { setAuthDefaults } from '../../redux/actions/AuthActions';
+import { setUserDefaults, currentUser } from '../../redux/actions/UserActions';
+
 import  Router  from 'next/router';
+import { UserRole } from '../../Share/CommonFunction';
 const Header = (props) => {
 	useEffect(()=>{
-		let token =Helpers.StorageService.getAccessToken();
 		props.setAuthDefaults();
-		console.log('===============',props.auth.isToken)
+
 	},[props.auth.isToken])
+
+	useEffect(()=>{
+		props.setUserDefaults();
+		props.currentUser();
+	},[])
+	
 	const logOut=()=>{
 		localStorage.clear();
 		props.setAuthDefaults();
 		Router.push('/login')
+	}
+
+	const gotoDashboard=()=>{
+		let role = props.user.user.role;
+		if(role===Helpers.Constant.ADMIN || role===Helpers.Constant.TEACHER){
+			Router.push('/admin')
+		}else{
+			Router.push('/user/dashboard')
+		}
 	}
 	return (
 		<>
@@ -34,8 +51,10 @@ const Header = (props) => {
 				</Link>
 			</Nav>
 			{props.auth.isToken?(
-					
-					<Button variant="outline-success" type="button" onClick={logOut}>Search</Button>
+				<Nav>
+					<Button  variant="danger" type="button" onClick={logOut}>Logout</Button>
+					<Button  variant="success" type="button" onClick={gotoDashboard} className="dashboard-left">Dashboard</Button>
+				</Nav>
 			):(
 				<Nav>
 				<Link href='/login' passHref>
@@ -58,12 +77,15 @@ const Header = (props) => {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		auth: state.auth,
+		user:state.user
 	};
   };
   
   const mapDispatchToProps = (dispatch) => {
 	return {
 		setAuthDefaults: () => dispatch(setAuthDefaults()),
+		setUserDefaults: () => dispatch(setUserDefaults()),
+		currentUser: () => dispatch(currentUser()),
 	};
   };
   

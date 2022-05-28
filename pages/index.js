@@ -1,50 +1,39 @@
 
-import {SliderImages} from '../src/web-app/components'
-import { connect } from 'react-redux';
-import { useSelector, useDispatch } from 'react-redux';
-import { decrement,increment } from '../src/redux/reducers/counterSlice';
-import { setAuthDefaults } from '../src/redux/actions/AuthActions';
 import { useEffect } from 'react';
-const Index=(props)=> {
-  const count = useSelector((state) => state.counter.value)
-  const dispatch = useDispatch()
-useEffect(()=>{
-props.setAuthDefaults();
-},[])
+import { connect } from 'react-redux';
+import { SliderImages } from '../src/web-app/components'
+import { setAuthDefaults } from '../src/redux/actions/AuthActions';
+import { setUserDefaults, currentUser } from '../src/redux/actions/UserActions';
+
+const Index = (props) => {
+  useEffect(() => {
+    props.setAuthDefaults();
+    props.setUserDefaults();
+    props.currentUser();
+  }, [])
   return (
     <>
-    <SliderImages/>
-
-    {/* <div>
-        <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
-          Increment
-        </button>
-        <span>{count}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
-          Decrement
-        </button>
-      </div> */}
+      <SliderImages />
     </>
- 
+
   );
 }
 
+
+
 const mapStateToProps = (state, ownProps) => {
-	return {
-		auth: state.auth,
-	};
+  return {
+    auth: state.auth,
+    user: state.user
   };
-  
-  const mapDispatchToProps = (dispatch) => {
-	return {
-		setAuthDefaults: () => dispatch(setAuthDefaults()),
-	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAuthDefaults: () => dispatch(setAuthDefaults()),
+    setUserDefaults: () => dispatch(setUserDefaults()),
+    currentUser: () => dispatch(currentUser()),
   };
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Index);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

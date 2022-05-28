@@ -12,6 +12,16 @@ const Forms = {
 
   registerForm: (name, value) => {
     switch (name) {
+      case "name":
+        if (!value) return "Name is Required";
+        else if (!Regex.FULL_NAME_REGEX.test(value))
+          return "Enter a valid name";
+        else return "";
+        case "phone":
+        if (!value) return "Phone is Required";
+        else if (!Regex.MOBILE_REGEX.test(value))
+          return "Enter a valid phone";
+        else return "";
       case "email":
         if (!value) return "Email is Required";
         else if (!Regex.EMAIL_REGEXP.test(value))

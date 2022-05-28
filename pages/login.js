@@ -4,13 +4,21 @@ import Router from 'next/router'
 import { toast } from 'react-toastify';
 import Helpers from '../src/Helpers';
 import { Breadcrumb } from '../src/web-app/components';
-import { buttonSpinner } from '../src/Share/CommonFunction';
+import { buttonSpinner, CustomLoader } from '../src/Share/CommonFunction';
 import { connect } from 'react-redux';
 import { setAuthDefaults } from '../src/redux/actions/AuthActions';
 const Login = (props) => {
     useEffect(()=>{
         props.setAuthDefaults();
     },[])
+
+    if (typeof window !== "undefined") {
+        if (localStorage.getItem("ClientAccessToken")) {
+          let token = Helpers.StorageService.getAccessToken();
+          if(token && token!==null)
+          Router.push("/");
+        }
+    }
     const initialForm ={
         email:'',
         password:''
@@ -51,8 +59,13 @@ const Login = (props) => {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "colored",
                   });
-                  Helpers.StorageService.setAccessToken(response.data.token);
-                  Router.push('/about');
+                Helpers.StorageService.setAccessToken(response.data.token);
+                let role = response.data.data.role;
+                if(role===Helpers.Constant.ADMIN || role===Helpers.Constant.TEACHER){
+                    Router.push('/admin')
+                }else{
+                    Router.push('/user/dashboard')
+                }
             }else{
                 setIsSpinner(false)
                 toast.error(response.data.message, {
@@ -73,6 +86,7 @@ const Login = (props) => {
     }
     return (
         <>
+        {isSpinner?<CustomLoader/>:''}
             <Breadcrumb page="Login" />
             <div className="container mt-4">
                 <div className='row'>
