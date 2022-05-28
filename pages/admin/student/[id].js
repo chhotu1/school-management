@@ -6,7 +6,7 @@ import {
     Grid,
 } from "@mui/material";
 import BaseCard from "../../../src/admin/components/baseCard/BaseCard";
-
+import withAuth from '../../../src/Share/withAuth';
 const StudentView = () => {
   return (
     <Grid container spacing={0}>
@@ -19,4 +19,4 @@ const StudentView = () => {
   )
 }
 
-export default StudentView
+export default withAuth(StudentView)

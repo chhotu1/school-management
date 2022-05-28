@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import BaseCard from "../../../src/admin/components/baseCard/BaseCard";
 import EmployeeForm from '../../../src/admin/components/employee/employee-form';
+import withAuth from '../../../src/Share/withAuth';
 const Add = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
@@ -29,4 +30,4 @@ const Add = () => {
     )
 }
 
-export default Add
+export default withAuth(Add)

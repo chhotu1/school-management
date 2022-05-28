@@ -10,6 +10,7 @@ const withAuth = (WrappedComponent) => {
       if (!accessToken) {
         Router.replace("/login");
       } else {
+        
         setVerified(true);
       }
     }, []);

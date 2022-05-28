@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import BaseCard from '../../../src/admin/components/baseCard/BaseCard';
 import EmployeeRow from '../../../src/admin/components/employee/employee-row';
 import Helpers from '../../../src/Helpers';
+import withAuth from '../../../src/Share/withAuth';
 const Employee = () => {
     const [datas,setDatas] = useState([]);
     useEffect(()=>{
@@ -43,4 +44,4 @@ const Employee = () => {
     )
 }
 
-export default Employee
+export default withAuth(Employee)

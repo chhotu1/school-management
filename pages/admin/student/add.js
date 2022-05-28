@@ -10,7 +10,7 @@ import Studentform from '../../../src/admin/components/Student/student-form';
 import { setStudentDefaults, handleStudentChange, createStudent, checkStudentValidation } from '../../../src/redux/actions/StudentActions';
 import Helpers from '../../../src/Helpers';
 import { CustomLoader } from '../../../src/Share/CommonFunction';
-
+import withAuth from '../../../src/Share/withAuth';
 const Add = (props) => {
     const handleChange = (event) => {
         if (event.target.name === 'photo') {
@@ -83,5 +83,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)((Add));
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Add));
 
