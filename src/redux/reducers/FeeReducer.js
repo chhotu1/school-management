@@ -13,11 +13,11 @@ const initialState = {
     created_at: '',
     updated_at: '',
     deleted_at: '',
-    amount:'',
+    amount: '',
   },
-  formError:{
-    title:'',
-    amount:''
+  formError: {
+    title: '',
+    amount: ''
   }
 }
 
@@ -79,23 +79,48 @@ const FeeReducer = function (state = initialState, action) {
         list_spinner: false,
         error_message: action.error,
       };
+    case FeeTypes.DELETE_FEES:
+      return {
+        ...state,
+        list_spinner: true
+      };
+    case FeeTypes.DELETE_FEES_SUCCESS:
+      let fees = state.fees;
+	  console.log(action.id,'=================action.id')
+	  fees.data = state.fees.filter(item => item._id != action.id);
+	  console.log(fees)
+	  console.log(fees,'feeeeseeesse')
+      return {
+        ...state,
+        list_spinner: false,
+        fees: fees,
+        success_message: action.message,
+        error_message: ''
+      };
+    case FeeTypes.DELETE_FEES_FAILURE:
+      return {
+        ...state,
+        list_spinner: false,
+        error_message: action.error.message,
+        success_message: ''
+      };
     default:
       return state;
   }
 };
- 
+
 function handleChange(state, action) {
   return {
     ...state,
     fee: { ...state.fee, [action.field]: action.data },
-    formError:{...state.formError,[action.field]:Helpers.Forms.feeForm(action.field,action.data)}
+    formError: { ...state.formError, [action.field]: Helpers.Forms.feeForm(action.field, action.data) }
   };
 }
 
-function handleCheckFormValidation(state,action){
+function handleCheckFormValidation(state, action) {
   return {
     ...state,
-    formError:{...state.formError,...action.data}
+    formError: { ...state.formError, ...action.data }
   };
 }
 

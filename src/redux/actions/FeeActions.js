@@ -35,11 +35,19 @@ function createFee(payload, cb) {
         });
         Helpers.FeeServices.create(payload)
             .then((response) => {
-                dispatch({
-                    type: FeeTypes.CREATE_FEES_SUCCESS,
-                    data: response.data,
-                });
-                cb();
+                if(response.data.status===true){
+                    dispatch({
+                        type: FeeTypes.CREATE_FEES_SUCCESS,
+                        data: response.data,
+                    });
+                    cb(response);
+                }else{
+                    cb(response);
+                    dispatch({
+                        type: FeeTypes.CREATE_FEES_FAILURE,
+                        error: response.data,
+                    });
+                }
             })
             .catch((error) => {
                 dispatch({
@@ -73,4 +81,26 @@ function feeList() {
     }
 }
 
-export { setFeeDefaults, handleFeeChange,createFee,feeList,checkFeeValidation };
+function deleteFee(id)
+{
+    return function (dispatch, getState) {
+        dispatch({
+            type: FeeTypes.DELETE_FEES
+        });
+        Helpers.FeeServices.remove(id).then(response => {
+            console.log(response,'response')
+            dispatch({
+                type: FeeTypes.DELETE_FEES_SUCCESS,
+                message: response.data.message,
+                id: id
+            });
+        }).catch(error => {
+            dispatch({
+                type: FeeTypes.DELETE_FEES_FAILURE,
+                error: error.response.data
+            })
+        });
+    }
+}
+
+export { setFeeDefaults, handleFeeChange,createFee,feeList,checkFeeValidation,deleteFee };

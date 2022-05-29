@@ -10,10 +10,18 @@ class Rows extends React.Component {
     constructor(props){
         super(props)
         this.view = this.view.bind(this);
+        // this.handleDelete = this.handleDelete.bind(this);
     }
 
     view(id){
         // Router.push("/admin/fee/"+id)
+    }
+
+    handleDelete(id) {
+        console.log(id,'=============')
+        if(confirm("Are you sure?")) {
+            this.props.deleteFee(id);
+        }
     }
 
     render(){
@@ -37,7 +45,7 @@ class Rows extends React.Component {
                                 <td>{item?.amount}</td>
                                 <td>
                                 <IconButton aria-label="delete" color="error">
-                                    <FeatherIcon icon="trash" width="20" height="20" onClick={()=>this.view(item._id)}/>
+                                    <FeatherIcon icon="trash" width="20" height="20" onClick={()=>this.handleDelete(item._id)}/>
                                 </IconButton>
                                 <IconButton aria-label="edit" color="success">
                                     <FeatherIcon icon="edit" width="20" height="20"/>

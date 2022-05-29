@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import Router  from 'next/router';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import {Alert} from 'react-bootstrap';
 import {
     Grid,
 } from "@mui/material";
@@ -11,7 +12,9 @@ import { setFeeDefaults,handleFeeChange, createFee,checkFeeValidation } from '..
 import Helpers from '../../../src/Helpers';
 import {buttonSpinner} from '../../../src/Share/CommonFunction'
 import withAuth from '../../../src/Share/withAuth';
+
 const Add = (props) => {
+
     const handleChange =(event)=>{
         if(event.target.name==='amount'){
             props.handleFeeChange(event.target.name, parseInt(event.target.value));
@@ -19,10 +22,10 @@ const Add = (props) => {
             props.handleFeeChange(event.target.name, event.target.value);
         }
     }
+
     useEffect(()=>{
         props.setFeeDefaults();
     },[])
-    console.log(props.fee.fee,'000')
 
     const handleSubmit =(e) => {
         e.preventDefault();
@@ -36,26 +39,32 @@ const Add = (props) => {
             return false;
         }
 
-        
-        props.createFee(props.fee.fee, function () {
-            Router.push("/admin/fee")
-            toast.success("New Fee Added Successfully", {
-              position: toast.POSITION.TOP_RIGHT,
-              theme: "colored",
-            })
+        props.createFee(props.fee.fee, function (res) {
+            if(res.data.status===true){
+                Router.push("/admin/fee")
+                toast.success("New Fee Added Successfully", {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: "colored",
+                })
+            }else{
+                toast.warning(res.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    theme: "colored",
+                })
+            }
         });
     }
-
 
     const countryhandleChange =(name,value)=>{
         props.handleFeeChange(name, value);
     }
 
-
     return (
         <Grid container spacing={0}>
             <Grid item xs={12} lg={12}>
                 <BaseCard title="New Fee" backArrow="return">
+                    {props.fee.error_message?<Alert  variant="danger">{props.fee.error_message}</Alert>:''}
+                                        
                     <form onSubmit={handleSubmit}>
                         <Form  handleChange={handleChange} formErrors={props.fee.formError} fee={props.fee.fee} countryhandleChange={countryhandleChange}/>
                         <div className="col-auto">

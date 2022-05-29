@@ -10,6 +10,9 @@ const FeeServices = {
     getById: (id) => {
         return axios.get(`/api/fee/${id}`, {headers: {token:Helpers.StorageService.getAccessToken() }});
     },
+    remove: (id) => {
+        return axios.delete(`/api/fee/${id}`, {headers:{token:Helpers.StorageService.getAccessToken() } });
+    },
 };
 
 export default FeeServices;
