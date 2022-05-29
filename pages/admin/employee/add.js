@@ -7,7 +7,6 @@ import BaseCard from "../../../src/admin/components/baseCard/BaseCard";
 import EmployeeForm from '../../../src/admin/components/employee/employee-form';
 import withAuth from '../../../src/Share/withAuth';
 const Add = () => {
-
     const handleChange = async (e) => {
         const { name, value } = e.target;
     }
