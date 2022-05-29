@@ -54,12 +54,11 @@ class TeacherForm extends React.Component {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Qualification</label>
-                            <select className="form-select" onChange={handleChange} name="qualification" >
-                                <option>Select Class</option>
-                                
-                            </select>
+
+                            <input type="text" className="form-control" placeholder="qualification" name="qualification" onChange={handleChange} value={teacher.qualification ? teacher.qualification : ''} />
                             {formErrors?.qualification ? ( <div className="error">{formErrors?.qualification}</div> ) : null}
                         </div>
+                       
                         <div className="mb-3">
                             <label className="form-label">Gender</label>
                             <select className="form-select" onChange={handleChange} name="gender" >
@@ -79,19 +78,32 @@ class TeacherForm extends React.Component {
                     <div className='col-md-6'>
                         <div className="mb-3">
                             <label className="form-label">Father Name</label>
-                            <input type="text" className="form-control" placeholder="Father Name" name="father_name" onChange={handleChange} value={teacher.father_name ? teacher.father_name : ''} />
-                            {formErrors?.father_name ? ( <div className="error">{formErrors?.father_name}</div> ) : null}
+                            <input type="text" className="form-control" placeholder="Father Name" name="father" onChange={handleChange} value={teacher.father ? teacher.father : ''} />
+                            {formErrors?.father ? ( <div className="error">{formErrors?.father}</div> ) : null}
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Phone</label>
-                            <input type="text" className="form-control" placeholder="Phone" name="father_mobile" onChange={handleChange} value={teacher.father_mobile ? teacher.father_mobile : ''} />
-                            {formErrors?.father_mobile ? ( <div className="error">{formErrors?.father_mobile}</div> ) : null}
+                            <input type="text" className="form-control" placeholder="Phone" name="phone" onChange={handleChange} value={teacher.phone ? teacher.phone : ''} />
+                            {formErrors?.phone ? ( <div className="error">{formErrors?.phone}</div> ) : null}
                         </div>
     
                         <div className="mb-3">
                             <label className="form-label">Email</label>
                             <input type="email" className="form-control" placeholder="name@example.com" name="email" onChange={handleChange} value={teacher.email ? teacher.email : ''} />
                             {formErrors?.email ? ( <div className="error">{formErrors?.email}</div> ) : null}
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Experience</label>
+                            <select className="form-select" onChange={handleChange} name="experience" >
+                                <option>Select Qualification</option>
+                                <option>1 years</option>
+                                <option>1.5 years</option>
+                                <option>2 years</option>
+                                <option>2.5 years</option>
+                                <option>3 years</option>
+                                
+                            </select>
+                            {formErrors?.qualification ? ( <div className="error">{formErrors?.qualification}</div> ) : null}
                         </div>
                         
     
@@ -126,7 +138,7 @@ class TeacherForm extends React.Component {
                                     })
                                 ) : null}
                             </select>
-                            {formErrors?.citty ? ( <div className="error">{formErrors?.citty}</div> ) : null}
+                            {formErrors?.city ? ( <div className="error">{formErrors?.city}</div> ) : null}
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Address</label>

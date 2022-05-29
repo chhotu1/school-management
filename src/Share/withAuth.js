@@ -6,12 +6,21 @@ const withAuth = (WrappedComponent) => {
     const Router = useRouter();
     const [verified, setVerified] = useState(false);
     useEffect(async () => {
-      const accessToken = Helpers.StorageService.getAccessToken();
+      const accessToken = await Helpers.StorageService.getAccessToken();
       if (!accessToken) {
         Router.replace("/login");
       } else {
-        
         setVerified(true);
+      //   try {
+      //     const decoded = jwt.verify(JSON.parse(accessToken), process.env.TOKEN_SECRET);
+      //     setVerified(true);
+      //  } catch(err) {
+      //    console.log(err)
+
+      //     // Router.replace("/login");
+      //     // localStorage.clear();
+      //     // setVerified(false);
+      //  }
       }
     }, []);
 

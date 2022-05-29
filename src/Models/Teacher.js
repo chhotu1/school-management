@@ -19,7 +19,7 @@ const TeacherSchema = new mongoose.Schema({
     gender:String,
     experience:String,
     language:String,
-    father_name:String,
+    father:String,
     phone:String,
     dob:String,
     status: {

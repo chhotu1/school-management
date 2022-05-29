@@ -11,6 +11,8 @@ import { setStudentDefaults, handleStudentChange, createStudent, checkStudentVal
 import Helpers from '../../../src/Helpers';
 import { CustomLoader } from '../../../src/Share/CommonFunction';
 import withAuth from '../../../src/Share/withAuth';
+import {buttonSpinner} from '../../../src/Share/CommonFunction'
+
 const Add = (props) => {
     const handleChange = (event) => {
         if (event.target.name === 'photo') {
@@ -58,8 +60,14 @@ const Add = (props) => {
                     <form onSubmit={handleSubmit}>
                         <Studentform handleChange={handleChange} student={props.student.student} formErrors={props.student.formError} countryhandleChange={countryhandleChange} />
                         <div className="col-auto">
-                            <button type="submit" className="btn btn-primary mb-3">Add new student</button>
+                        {props.student.create_update_spinner?(
+                                 <button type="button" className="btn btn-primary mb-3">{buttonSpinner(props.student.create_update_spinner)}</button>
+                            ):(
+                                <button type="submit" className="btn btn-primary mb-3">Add new student</button>
+                            )}
+                            
                         </div>
+                        
                     </form>
                 </BaseCard>
             </Grid>

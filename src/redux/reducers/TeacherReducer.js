@@ -19,14 +19,15 @@ const initialState = {
     city: '',
     gender: '',
     class: '',
-    father_name: '',
-    father_mobile: '',
+    father: '',
+    phone: '',
     dob: '',
     status: '',
     created_at: '',
     updated_at: '',
     deleted_at: '',
-    occupation: ''
+    qualification:'',
+    experience:'',
   },
   formError:{
     name: '',
@@ -37,11 +38,11 @@ const initialState = {
     pincode: '',
     city: '',
     gender: '',
-    class: '',
-    father_name: '',
-    father_mobile: '',
+    father: '',
+    phone: '',
     dob: '',
-    occupation: ''
+    qualification:'',
+    experience:'',
   }
 }
 

@@ -18,6 +18,7 @@ export default apiHandler({
 });
 dbConnect();
 async function getData(req, res) {
+    await jwtMiddleware(req, res);
     await Student.find()
         .then((data) => {
             return res.json({ status: true, success: true, data: data });
@@ -40,7 +41,7 @@ async function add(req, res) {
                 let time = d.getTime();
                 var oldPath = files.photo.filepath;
                 photo = `${fields.name}_${time}_${files.photo.originalFilename}`;
-                var newPath = `./public/uploads/student/${photo}`;
+                var newPath = `./public/uploads/students/${photo}`;
                 mv(oldPath, newPath, function (err) {
                 });
             }

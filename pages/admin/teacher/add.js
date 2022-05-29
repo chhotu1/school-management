@@ -9,6 +9,8 @@ import BaseCard from "../../../src/admin/components/baseCard/BaseCard";
 import TeacherForm from '../../../src/admin/components/teacher/TeacherForm';
 import { setTeacherDefaults,handleTeacherChange, createTeacher,checkTeacherValidation } from '../../../src/redux/actions/TeacherActions';
 import Helpers from '../../../src/Helpers';
+import {buttonSpinner} from '../../../src/Share/CommonFunction'
+import withAuth from '../../../src/Share/withAuth';
 const Add = (props) => {
     const handleChange =(event)=>{
         if(event.target.name==='photo'){
@@ -22,6 +24,7 @@ const Add = (props) => {
     useEffect(()=>{
         props.setTeacherDefaults();
     },[])
+    console.log(props.teacher.teacher,'000')
 
     const handleSubmit =(e) => {
         e.preventDefault();
@@ -45,18 +48,25 @@ const Add = (props) => {
         });
     }
 
+
     const countryhandleChange =(name,value)=>{
         props.handleTeacherChange(name, value);
     }
+
 
     return (
         <Grid container spacing={0}>
             <Grid item xs={12} lg={12}>
                 <BaseCard title="New Teacher" backArrow="return">
                     <form onSubmit={handleSubmit}>
-                        <TeacherForm  handleChange={handleChange} teacher={props.teacher.teacher} countryhandleChange={countryhandleChange}/>
+                        <TeacherForm  handleChange={handleChange} formErrors={props.teacher.formError} teacher={props.teacher.teacher} countryhandleChange={countryhandleChange}/>
                         <div className="col-auto">
-                            <button type="submit" className="btn btn-primary mb-3">Add new teacher</button>
+                            {props.teacher.create_update_spinner?(
+                                 <button type="button" className="btn btn-primary mb-3">{buttonSpinner(props.teacher.create_update_spinner)}</button>
+                            ):(
+                                <button type="submit" className="btn btn-primary mb-3">Add new teacher</button>
+                            )}
+                           
                         </div>
                     </form>
                 </BaseCard>
@@ -82,5 +92,5 @@ const mapStateToProps = (state, ownProps) => {
     };
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)((Add));
+  export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Add));
   

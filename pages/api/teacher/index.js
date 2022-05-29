@@ -18,6 +18,7 @@ export default apiHandler({
 });
 dbConnect();
 async function getData(req, res) {
+    await jwtMiddleware(req, res);
     await Teacher.find()
         .then((data) => {
             return res.json({ status: true, success: true, data: data });
@@ -40,7 +41,7 @@ async function add(req, res) {
                 let time = d.getTime();
                 var oldPath = files.photo.filepath;
                 photo = `${fields.name}_${time}_${files.photo.originalFilename}`;
-                var newPath = `./public/uploads/teacher/${photo}`;
+                var newPath = `./public/uploads/teachers/${photo}`;
                 mv(oldPath, newPath, function (err) {
                 });
             }
@@ -56,10 +57,11 @@ async function add(req, res) {
                 gender:fields.gender,
                 dob:fields.dob,
                 pincode:fields.pincode,
-                father_name:fields.father_name,
-                father_mobile:fields.father_mobile,
+                father:fields.father,
+                phone:fields.phone,
                 dob:fields.dob,
-                occupation:fields.occupation,
+                qualification:fields.qualification,
+                experience:fields.experience,
                 photo: photo,
                 created_by: userId,
             };
