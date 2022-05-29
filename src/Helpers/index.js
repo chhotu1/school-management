@@ -8,6 +8,7 @@ import Forms from "./Forms";
 import StorageService from "./services/StorageServices";
 import StudentService from "./services/StudentService";
 import TeacherServices from "./services/TeacherServices";
+import FeeServices from "./services/FeeServices";
 import Constant from "../Share/Constant";
 const STATUS ={
     ACTIVE:1,
@@ -27,6 +28,7 @@ const Helpers ={
     UserServices,
     StudentService,
     TeacherServices,
+    FeeServices,
     Constant
 }
 

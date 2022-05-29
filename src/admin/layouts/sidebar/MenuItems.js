@@ -20,6 +20,11 @@ const Menuitems = [
     href: "/student",
   },
   {
+    title: "Fee",
+    icon: "disc",
+    href: "/fee",
+  },
+  {
     title: "Buttons",
     icon: "disc",
     href: "/buttons",
