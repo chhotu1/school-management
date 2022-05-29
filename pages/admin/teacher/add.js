@@ -7,27 +7,38 @@ import {
 } from "@mui/material";
 import BaseCard from "../../../src/admin/components/baseCard/BaseCard";
 import TeacherForm from '../../../src/admin/components/teacher/TeacherForm';
-import { setStudentDefaults,handleStudentChange, createStudent } from '../../../src/redux/actions/StudentActions';
+import { setTeacherDefaults,handleTeacherChange, createTeacher,checkTeacherValidation } from '../../../src/redux/actions/TeacherActions';
+import Helpers from '../../../src/Helpers';
 const Add = (props) => {
     const handleChange =(event)=>{
         if(event.target.name==='photo'){
             if (event.target.files && event.target.files.length > 0) {
-                props.handleStudentChange("photo", event.target.files[0]);
+                props.handleTeacherChange("photo", event.target.files[0]);
             }
         }else{
-            props.handleStudentChange(event.target.name, event.target.value);
+            props.handleTeacherChange(event.target.name, event.target.value);
         }
     }
     useEffect(()=>{
-        props.setStudentDefaults();
+        props.setTeacherDefaults();
     },[])
 
     const handleSubmit =(e) => {
         e.preventDefault();
+        const formObject = Helpers.Forms.validateForm(
+            props.teacher.teacher,
+            props.teacher.formError,
+            Helpers.Forms.teacherForm
+        );
+        if (Object.keys(formObject).length !== 0) {
+            props.checkTeacherValidation(formObject);
+            return false;
+        }
+
         
-        props.createStudent(props.student.student, function () {
-            Router.push("/admin/student")
-            toast.success("New Student Added Successfully", {
+        props.createTeacher(props.teacher.teacher, function () {
+            Router.push("/admin/teacher")
+            toast.success("New Teacher Added Successfully", {
               position: toast.POSITION.TOP_RIGHT,
               theme: "colored",
             })
@@ -35,17 +46,17 @@ const Add = (props) => {
     }
 
     const countryhandleChange =(name,value)=>{
-        props.handleStudentChange(name, value);
+        props.handleTeacherChange(name, value);
     }
 
     return (
         <Grid container spacing={0}>
             <Grid item xs={12} lg={12}>
-                <BaseCard title="New Student" backArrow="return">
+                <BaseCard title="New Teacher" backArrow="return">
                     <form onSubmit={handleSubmit}>
-                        <TeacherForm  handleChange={handleChange} student={props.student.student} countryhandleChange={countryhandleChange}/>
+                        <TeacherForm  handleChange={handleChange} teacher={props.teacher.teacher} countryhandleChange={countryhandleChange}/>
                         <div className="col-auto">
-                            <button type="submit" className="btn btn-primary mb-3">Add new student</button>
+                            <button type="submit" className="btn btn-primary mb-3">Add new teacher</button>
                         </div>
                     </form>
                 </BaseCard>
@@ -57,15 +68,17 @@ const Add = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-      student: state.student,
+      teacher: state.teacher,
     };
   };
   
   const mapDispatchToProps = (dispatch) => {
     return {
-        setStudentDefaults: () => dispatch(setStudentDefaults()),
-        handleStudentChange: (field, value) =>dispatch(handleStudentChange(field, value)),
-        createStudent: (payload, cb) => dispatch(createStudent(payload, cb)),
+        setTeacherDefaults: () => dispatch(setTeacherDefaults()),
+        handleTeacherChange: (field, value) =>dispatch(handleTeacherChange(field, value)),
+        checkTeacherValidation: (value) => dispatch(checkTeacherValidation(value)),
+
+        createTeacher: (payload, cb) => dispatch(createTeacher(payload, cb)),
     };
   };
   

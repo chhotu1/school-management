@@ -9,10 +9,9 @@ const TeacherSchema = new mongoose.Schema({
         type: String,
         index: true, sparse: true,
     },
-    photo: {
-        type: String
-    },
+    photo: String,
     address:String,
+    qualification:String,
     country:String,
     state:String,
     pincode:Number,
@@ -38,4 +37,4 @@ const TeacherSchema = new mongoose.Schema({
     deleted_at: Date,
 })
 
-module.exports = mongoose.models.User || mongoose.model('Teacher', TeacherSchema);
+module.exports = mongoose.models.Teacher || mongoose.model('Teacher', TeacherSchema);

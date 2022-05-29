@@ -36,7 +36,7 @@ class TeacherForm extends React.Component {
     }
 
     render(){
-        const { handleChange, student } = this.props;
+        const { handleChange, teacher,formErrors } = this.props;
         const {countries,cities ,states} = this.state;
         return (
             <div>
@@ -44,18 +44,21 @@ class TeacherForm extends React.Component {
                     <div className='col-md-6'>
                         <div className="mb-3">
                             <label className="form-label">Name</label>
-                            <input type="text" className="form-control" placeholder="Name" name="name" onChange={handleChange} value={student.name ? student.name : ''} />
+                            <input type="text" className="form-control" placeholder="Name" name="name" onChange={handleChange} value={teacher.name ? teacher.name : ''} />
+                            {formErrors?.name ? ( <div className="error">{formErrors?.name}</div> ) : null}
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Date Of Birth</label>
-                            <input type="date" className="form-control" placeholder="12/03/2020" name="dob" onChange={handleChange} value={student.dob ? student.dob : ''} />
+                            <input type="date" className="form-control" placeholder="12/03/2020" name="dob" onChange={handleChange} value={teacher.dob ? teacher.dob : ''} />
+                            {formErrors?.dob ? ( <div className="error">{formErrors?.dob}</div> ) : null}
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Class</label>
-                            <select className="form-select" onChange={handleChange} name="class" >
+                            <label className="form-label">Qualification</label>
+                            <select className="form-select" onChange={handleChange} name="qualification" >
                                 <option>Select Class</option>
                                 
                             </select>
+                            {formErrors?.qualification ? ( <div className="error">{formErrors?.qualification}</div> ) : null}
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Gender</label>
@@ -64,9 +67,10 @@ class TeacherForm extends React.Component {
                                 <option>Male</option>
                                 <option>Famel</option>
                             </select>
+                            {formErrors?.gender ? ( <div className="error">{formErrors?.gender}</div> ) : null}
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Student Photo</label>
+                            <label className="form-label">Teacher Photo</label>
                             <input className="form-control" type="file" id="photo" name="photo" accept='image/*'  onChange={handleChange}/>
                         </div>
     
@@ -75,21 +79,21 @@ class TeacherForm extends React.Component {
                     <div className='col-md-6'>
                         <div className="mb-3">
                             <label className="form-label">Father Name</label>
-                            <input type="text" className="form-control" placeholder="Father Name" name="father_name" onChange={handleChange} value={student.father_name ? student.father_name : ''} />
+                            <input type="text" className="form-control" placeholder="Father Name" name="father_name" onChange={handleChange} value={teacher.father_name ? teacher.father_name : ''} />
+                            {formErrors?.father_name ? ( <div className="error">{formErrors?.father_name}</div> ) : null}
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Father Phone</label>
-                            <input type="text" className="form-control" placeholder="Phone" name="father_mobile" onChange={handleChange} value={student.father_mobile ? student.father_mobile : ''} />
+                            <label className="form-label">Phone</label>
+                            <input type="text" className="form-control" placeholder="Phone" name="father_mobile" onChange={handleChange} value={teacher.father_mobile ? teacher.father_mobile : ''} />
+                            {formErrors?.father_mobile ? ( <div className="error">{formErrors?.father_mobile}</div> ) : null}
                         </div>
     
                         <div className="mb-3">
-                            <label className="form-label">Father Email</label>
-                            <input type="email" className="form-control" placeholder="name@example.com" name="email" onChange={handleChange} value={student.email ? student.email : ''} />
+                            <label className="form-label">Email</label>
+                            <input type="email" className="form-control" placeholder="name@example.com" name="email" onChange={handleChange} value={teacher.email ? teacher.email : ''} />
+                            {formErrors?.email ? ( <div className="error">{formErrors?.email}</div> ) : null}
                         </div>
-                        <div className="mb-3">
-                            <label className="form-label">Father occupation</label>
-                            <input type="text" className="form-control" placeholder="Father occupation" name="occupation" onChange={handleChange} value={student.occupation ? student.occupation : ''} />
-                        </div>
+                        
     
                     </div>
                 </div>
@@ -108,6 +112,7 @@ class TeacherForm extends React.Component {
                                     })
                                 ) : null}
                             </select>
+                            {formErrors?.country ? ( <div className="error">{formErrors?.country}</div> ) : null}
                         </div>
                         <div className="mb-3">
                             <label className="form-label">City</label>
@@ -121,10 +126,11 @@ class TeacherForm extends React.Component {
                                     })
                                 ) : null}
                             </select>
+                            {formErrors?.citty ? ( <div className="error">{formErrors?.citty}</div> ) : null}
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Address</label>
-                            <input type="text" className="form-control" placeholder="Address" name="address" onChange={handleChange} value={student.address ? student.address : ''} />
+                            <input type="text" className="form-control" placeholder="Address" name="address" onChange={handleChange} value={teacher.address ? teacher.address : ''} />
                         </div>
                     </div>
                     <div className='col-md-6'>
@@ -140,11 +146,12 @@ class TeacherForm extends React.Component {
                                     })
                                 ) : null}
                             </select>
+                            {formErrors?.state ? ( <div className="error">{formErrors?.state}</div> ) : null}
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Pincode</label>
-                            <input type="text" className="form-control" placeholder="Pincode" onChange={handleChange} name="pincode" value={student.pincode ? student.pincode : ''} />
-                        </div>
+                            <input type="text" className="form-control" placeholder="Pincode" onChange={handleChange} name="pincode" value={teacher.pincode ? teacher.pincode : ''} />
+                            {formErrors?.pincode ? ( <div className="error">{formErrors?.pincode}</div> ) : null}</div>
                     </div>
                 </div>
             </div>

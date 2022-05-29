@@ -9,10 +9,11 @@ class TeacherRow extends React.Component {
 
     constructor(props){
         super(props)
+        this.view = this.view.bind(this);
     }
 
     view(id){
-        Router.push("/admin/student/"+id)
+        Router.push("/admin/teacher/"+id)
     }
 
     render(){
@@ -46,13 +47,13 @@ class TeacherRow extends React.Component {
                                 <td>{item?.father_mobile}</td>
                                 <td>
                                 <IconButton aria-label="delete" color="error">
-                                    <FeatherIcon icon="trash" width="20" height="20" />
+                                    <FeatherIcon icon="trash" width="20" height="20" onClick={()=>this.view(item._id)}/>
                                 </IconButton>
-                                <IconButton aria-label="edit" color="success" onClick={this.view(item._id)}>
-                                    <FeatherIcon icon="edit" width="20" height="20" />
+                                <IconButton aria-label="edit" color="success">
+                                    <FeatherIcon icon="edit" width="20" height="20"/>
                                 </IconButton>
-                                <IconButton aria-label="eye" color="primary" onClick={this.view(item._id)}>
-                                    <FeatherIcon icon="eye" width="20" height="20" />
+                                <IconButton aria-label="eye" color="primary">
+                                    <FeatherIcon icon="eye" width="20" height="20"/>
                                 </IconButton>
                                 </td>
                             </tr>
