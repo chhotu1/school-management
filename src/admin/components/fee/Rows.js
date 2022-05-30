@@ -2,6 +2,7 @@ import React from 'react'
 import Router from 'next/router'
 import { Table } from 'react-bootstrap';
 import FeatherIcon from "feather-icons-react";
+import { toast } from 'react-toastify';
 import {
     IconButton,
   } from "@mui/material";
@@ -18,9 +19,20 @@ class Rows extends React.Component {
     }
 
     handleDelete(id) {
-        console.log(id,'=============')
         if(confirm("Are you sure?")) {
-            this.props.deleteFee(id);
+            this.props.deleteFee(id, function (res) {
+                if(res.data.status===true){
+                    toast.success(res.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored",
+                    })
+                }else{
+                    toast.warning(res.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored",
+                    })
+                }
+            })
         }
     }
 

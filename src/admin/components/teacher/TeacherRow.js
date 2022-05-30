@@ -2,6 +2,7 @@ import React from 'react'
 import Router from 'next/router'
 import { Table } from 'react-bootstrap';
 import FeatherIcon from "feather-icons-react";
+import { toast } from 'react-toastify';
 import {
     IconButton,
   } from "@mui/material";
@@ -14,6 +15,23 @@ class TeacherRow extends React.Component {
 
     view(id){
         Router.push("/admin/teacher/"+id)
+    }
+    handleDelete(id) {
+        if(confirm("Are you sure?")) {
+            this.props.deleteTeacher(id, function (res) {
+                if(res.data.status===true){
+                    toast.success(res.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored",
+                    })
+                }else{
+                    toast.warning(res.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored",
+                    })
+                }
+            })
+        }
     }
 
     render(){
@@ -47,7 +65,7 @@ class TeacherRow extends React.Component {
                                 <td>{item?.phone}</td>
                                 <td>
                                 <IconButton aria-label="delete" color="error">
-                                    <FeatherIcon icon="trash" width="20" height="20" onClick={()=>this.view(item._id)}/>
+                                    <FeatherIcon icon="trash" width="20" height="20" onClick={()=>this.handleDelete(item._id)}/>
                                 </IconButton>
                                 <IconButton aria-label="edit" color="success">
                                     <FeatherIcon icon="edit" width="20" height="20"/>

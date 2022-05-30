@@ -103,6 +103,28 @@ const StudentReducer = function (state = initialState, action) {
         list_spinner: false,
         error_message: action.error,
       };
+      case StudentTypes.DELETE_STUDENTS:
+        return {
+          ...state,
+          list_spinner: true
+        };
+      case StudentTypes.DELETE_STUDENTS_SUCCESS:
+        let students = state.students;
+        students = state.students.filter(item => item._id != action.id);
+        return {
+          ...state,
+          list_spinner: false,
+          students: students,
+          success_message: action.message,
+          error_message: ''
+        };
+      case StudentTypes.DELETE_STUDENTS_FAILURE:
+        return {
+          ...state,
+          list_spinner: false,
+          error_message: action.error.message,
+          success_message: ''
+        };
     default:
       return state;
   }

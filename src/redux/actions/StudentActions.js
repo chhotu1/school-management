@@ -74,4 +74,34 @@ function studentList() {
     }
 }
 
-export { setStudentDefaults, handleStudentChange,createStudent,studentList,checkStudentValidation };
+function deleteStudent(id,cp)
+{
+    return function (dispatch, getState) {
+        dispatch({
+            type: StudentTypes.DELETE_STUDENTS
+        });
+        Helpers.StudentService.remove(id).then(response => {
+            if(response.data.status===true){
+                dispatch({
+                    type: StudentTypes.DELETE_STUDENTS_SUCCESS,
+                    message: response.data.message,
+                    id: id
+                });
+                cp(response)
+            }else{
+                dispatch({
+                    type: StudentTypes.DELETE_STUDENTS_FAILURE,
+                    error: response.data.message
+                });
+                cp(response)
+            }
+        }).catch(error => {
+            dispatch({
+                type: StudentTypes.DELETE_STUDENTS_FAILURE,
+                error: error.response.data
+            })
+        });
+    }
+}
+
+export { setStudentDefaults, handleStudentChange,createStudent,studentList,checkStudentValidation,deleteStudent };

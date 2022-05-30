@@ -73,4 +73,35 @@ function teacherList() {
     }
 }
 
-export { setTeacherDefaults, handleTeacherChange,createTeacher,teacherList,checkTeacherValidation };
+
+function deleteTeacher(id,cp)
+{
+    return function (dispatch, getState) {
+        dispatch({
+            type: TeacherTypes.DELETE_TEACHERS
+        });
+        Helpers.TeacherServices.remove(id).then(response => {
+            if(response.data.status===true){
+                dispatch({
+                    type: TeacherTypes.DELETE_TEACHERS_SUCCESS,
+                    message: response.data.message,
+                    id: id
+                });
+                cp(response)
+            }else{
+                dispatch({
+                    type: TeacherTypes.DELETE_TEACHERS_FAILURE,
+                    error: response.data.message
+                });
+                cp(response)
+            }
+        }).catch(error => {
+            dispatch({
+                type: TeacherTypes.DELETE_TEACHERS_FAILURE,
+                error: error.response.data
+            })
+        });
+    }
+}
+
+export { setTeacherDefaults, handleTeacherChange,createTeacher,teacherList,checkTeacherValidation,deleteTeacher };

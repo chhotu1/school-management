@@ -104,6 +104,28 @@ const TeacherReducer = function (state = initialState, action) {
         list_spinner: false,
         error_message: action.error,
       };
+      case TeacherTypes.DELETE_TEACHERS:
+        return {
+          ...state,
+          list_spinner: true
+        };
+      case TeacherTypes.DELETE_TEACHERS_SUCCESS:
+        let teachers = state.teachers;
+        teachers = state.teachers.filter(item => item._id != action.id);
+        return {
+          ...state,
+          list_spinner: false,
+          teachers: teachers,
+          success_message: action.message,
+          error_message: ''
+        };
+      case TeacherTypes.DELETE_TEACHERS_FAILURE:
+        return {
+          ...state,
+          list_spinner: false,
+          error_message: action.error.message,
+          success_message: ''
+        };
     default:
       return state;
   }

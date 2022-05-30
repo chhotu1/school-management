@@ -9,6 +9,9 @@ const StudentService = {
     getStudent: () => {
         return axios.get('/api/student', {headers: {token:Helpers.StorageService.getAccessToken() }});
     },
+    remove: (id) => {
+        return axios.delete(`/api/student/${id}`, {headers:{token:Helpers.StorageService.getAccessToken() } });
+    },
 
     toFormData: (payload) => {
         const formData = new FormData();

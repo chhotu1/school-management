@@ -4,7 +4,8 @@ import { Grid } from "@mui/material";
 import BaseCard from '../../../src/admin/components/baseCard/BaseCard';
 import Rows from '../../../src/admin/components/fee/Rows';
 import { setFeeDefaults,feeList,deleteFee } from '../../../src/redux/actions/FeeActions';
-import withAuth from '../../../src/Share/withAuth'
+import withAuth from '../../../src/Share/withAuth';
+import { CustomLoader } from '../../../src/Share/CommonFunction';
 class Fee extends React.Component{
 
     constructor(props) {
@@ -18,12 +19,11 @@ class Fee extends React.Component{
         this.props.feeList();
     }
 
-   
-
     render(){
-        console.log(this.props.fee,'f')
+        
         return (
             <Grid container spacing={0}>
+                {this.props.fee.list_spinner?<CustomLoader/>:null}
                 <Grid item xs={12} lg={12}>
                     <BaseCard title="All Fee" link="fee/add" linkTitle="Add Fee">
                         <div>
@@ -48,7 +48,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         setFeeDefaults: () => dispatch(setFeeDefaults()),
         feeList: () => dispatch(feeList()),
-        deleteFee: (id) => dispatch(deleteFee(id))
+        deleteFee: (id,cp) => dispatch(deleteFee(id,cp))
     };
   };
   

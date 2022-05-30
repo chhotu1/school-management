@@ -21,7 +21,7 @@ const Menuitems = [
   },
   {
     title: "Fee",
-    icon: "disc",
+    icon: "dollar-sign",
     href: "/fee",
   },
   {

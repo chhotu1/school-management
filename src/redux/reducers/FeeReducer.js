@@ -86,10 +86,7 @@ const FeeReducer = function (state = initialState, action) {
       };
     case FeeTypes.DELETE_FEES_SUCCESS:
       let fees = state.fees;
-	  console.log(action.id,'=================action.id')
-	  fees.data = state.fees.filter(item => item._id != action.id);
-	  console.log(fees)
-	  console.log(fees,'feeeeseeesse')
+      fees = state.fees.filter(item => item._id != action.id);
       return {
         ...state,
         list_spinner: false,

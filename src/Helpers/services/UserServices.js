@@ -7,6 +7,9 @@ const UserServices = {
     getAll: () => {
         return axios.get('/api/users', {headers: {token:Helpers.StorageService.getAccessToken() }});
     },
+    remove: (id) => {
+        return axios.delete(`/api/users/${id}`, {headers:{token:Helpers.StorageService.getAccessToken() } });
+    },
     getCurrentUser: () => {
         return axios.get('/api/users/current-user', {headers: {token:Helpers.StorageService.getAccessToken() }});
     },

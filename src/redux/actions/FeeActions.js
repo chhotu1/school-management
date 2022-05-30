@@ -81,19 +81,27 @@ function feeList() {
     }
 }
 
-function deleteFee(id)
+function deleteFee(id,cp)
 {
     return function (dispatch, getState) {
         dispatch({
             type: FeeTypes.DELETE_FEES
         });
         Helpers.FeeServices.remove(id).then(response => {
-            console.log(response,'response')
-            dispatch({
-                type: FeeTypes.DELETE_FEES_SUCCESS,
-                message: response.data.message,
-                id: id
-            });
+            if(response.data.status===true){
+                dispatch({
+                    type: FeeTypes.DELETE_FEES_SUCCESS,
+                    message: response.data.message,
+                    id: id
+                });
+                cp(response)
+            }else{
+                dispatch({
+                    type: FeeTypes.DELETE_FEES_FAILURE,
+                    error: response.data.message
+                });
+                cp(response)
+            }
         }).catch(error => {
             dispatch({
                 type: FeeTypes.DELETE_FEES_FAILURE,

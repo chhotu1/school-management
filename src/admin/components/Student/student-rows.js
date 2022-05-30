@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap';
 import FeatherIcon from "feather-icons-react";
+import { toast } from 'react-toastify';
 import {
     IconButton,
   } from "@mui/material";
@@ -10,6 +11,23 @@ const StudentRows = (props) => {
 
     const studentView=(id)=>{
         Router.push("/admin/student/"+id)
+    }
+    const handleDelete =(id)=> {
+        if(confirm("Are you sure?")) {
+            props.deleteStudent(id, function (res) {
+                if(res.data.status===true){
+                    toast.success(res.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored",
+                    })
+                }else{
+                    toast.warning(res.data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored",
+                    })
+                }
+            })
+        }
     }
     return (
         <Table responsive size="sm" >
@@ -40,7 +58,7 @@ const StudentRows = (props) => {
                             <td>{item?.father_mobile}</td>
                             <td>
                             <IconButton aria-label="delete" color="error">
-                                <FeatherIcon icon="trash" width="20" height="20" />
+                                <FeatherIcon icon="trash" width="20" height="20"  onClick={()=>handleDelete(item._id)}/>
                             </IconButton>
                             <IconButton aria-label="edit" color="success" onClick={()=>studentView(item._id)}>
                                 <FeatherIcon icon="edit" width="20" height="20" />
