@@ -5,6 +5,11 @@ const Menuitems = [
     href: "/",
   },
   {
+    title: "User",
+    icon: "users",
+    href: "/user",
+  },
+  {
     title: "Teacher",
     icon: "user",
     href: "/teacher",

@@ -1,5 +1,4 @@
 import * as UserTypes from "../actionTypes/UserTypes";
-
 import Helpers from "../../Helpers";
 function setUserDefaults() {
     return function (dispatch, getState) {
@@ -49,8 +48,6 @@ function currentUser() {
 
 }
 
-
-
 function handleUserChange(field, value) {
     return function (dispatch, getState) {
         dispatch({
@@ -59,6 +56,89 @@ function handleUserChange(field, value) {
             field,
         });
     };
+}
+
+function checkUserValidation(value) {
+    return function (dispatch, getState) {
+        dispatch({
+            type: UserTypes.VALIDATE_USER_FORM,
+            data: value
+        });
+    };
+}
+
+function createUser(payload, cb) {
+    return function (dispatch, getState) {
+        dispatch({
+            type: UserTypes.CREATE_USERS,
+        });
+        Helpers.UserServices.create(payload)
+            .then((response) => {
+                dispatch({
+                    type: UserTypes.CREATE_USERS_SUCCESS,
+                    data: response.data,
+                });
+                cb();
+            })
+            .catch((error) => {
+                dispatch({
+                    type: UserTypes.CREATE_USERS_FAILURE,
+                    error: error.response.data,
+                });
+            });
+    };
+}
+
+function userList() {
+    return function (dispatch, getState) {
+        dispatch({
+            type: UserTypes.LIST_USERS
+        });
+        Helpers.UserServices.getAll().then(response => {
+            dispatch({
+                type: UserTypes.LIST_USERS_SUCCESS,
+                data: response.data.data,
+                error:''
+            });
+        }).catch(error => {
+            if(error.response){
+                dispatch({
+                    type: UserTypes.LIST_USERS_FAILURE,
+                    error: error.response.data
+                });
+            }
+        });
+    }
+}
+
+function deleteUser(id,cp)
+{
+    return function (dispatch, getState) {
+        dispatch({
+            type: UserTypes.DELETE_USERS
+        });
+        Helpers.UserServices.remove(id).then(response => {
+            if(response.data.status===true){
+                dispatch({
+                    type: UserTypes.DELETE_USERS_SUCCESS,
+                    message: response.data.message,
+                    id: id
+                });
+                cp(response)
+            }else{
+                dispatch({
+                    type: UserTypes.DELETE_USERS_FAILURE,
+                    error: response.data.message
+                });
+                cp(response)
+            }
+        }).catch(error => {
+            dispatch({
+                type: UserTypes.DELETE_USERS_FAILURE,
+                error: error.response.data
+            })
+        });
+    }
 }
 
 // function editUser(payload, id, cb) {
@@ -85,7 +165,4 @@ function handleUserChange(field, value) {
 // }
 
 
-
-
-
-export { setUserDefaults, currentUser, handleUserChange };
+export { setUserDefaults, currentUser, handleUserChange,createUser,userList,checkUserValidation,deleteUser };
