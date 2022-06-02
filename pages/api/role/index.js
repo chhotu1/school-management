@@ -9,7 +9,7 @@ export default apiHandler({
 
 async function getRoles(req, res) {
     await jwtMiddleware(req, res);
-    Role.find()
+    Role.find().sort({created_at: -1})
         .populate("created_by")
         .then((data) => {
             return res.json({ status: true, success: true, data: data });

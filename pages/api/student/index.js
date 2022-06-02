@@ -19,7 +19,7 @@ export default apiHandler({
 dbConnect();
 async function getData(req, res) {
     await jwtMiddleware(req, res);
-    await Student.find()
+    await Student.find().sort({created_at: -1})
         .then((data) => {
             return res.json({ status: true, success: true, data: data });
         })

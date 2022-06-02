@@ -20,7 +20,7 @@ dbConnect();
 async function getData(req, res) {
     await jwtMiddleware(req, res);
     let userId = req.user._id;
-    await User.find({_id:{ $ne: userId }})
+    await User.find({_id:{ $ne: userId }}).sort({created_at: -1})
         .then((data) => {
             return res.json({ status: true, success: true, data: data });
         })
@@ -61,6 +61,7 @@ async function add(req, res) {
 
             let user_data = {
                 name: fields.name,
+                role: fields.role,
                 password: fields.password,
                 email:fields.email,
                 address:fields.address,

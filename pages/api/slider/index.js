@@ -22,7 +22,7 @@ export default apiHandler({
 });
 
 async function getData(req, res) {
-    Slider.find()
+    Slider.find().sort({created_at: -1})
         .then((data) => {
             return res.json({ status: true, success: true, data: data });
         })

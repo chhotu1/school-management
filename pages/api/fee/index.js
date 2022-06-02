@@ -12,7 +12,7 @@ export default apiHandler({
 
 async function getData(req, res) {
     await jwtMiddleware(req, res);
-    await Fee.find()
+    await Fee.find().sort({created_at: -1})
         .then((data) => {
             return res.json({ status: true, success: true, data: data });
         })
