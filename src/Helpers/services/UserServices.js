@@ -2,8 +2,8 @@ import axios from "axios";
 import Helpers from "./../../Helpers";
 const UserServices = {
     create: (payload) => {
-        let data = TeacherServices.toFormData(payload);
-        return axios.post('api/users', data, {headers: {token:Helpers.StorageService.getAccessToken() }});
+        let data = UserServices.toFormData(payload);
+        return axios.post('/api/users', data, {headers: {token:Helpers.StorageService.getAccessToken() }});
     },
     getAll: () => {
         return axios.get('/api/users', {headers: {token:Helpers.StorageService.getAccessToken() }});

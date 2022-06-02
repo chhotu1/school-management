@@ -74,11 +74,18 @@ function createUser(payload, cb) {
         });
         Helpers.UserServices.create(payload)
             .then((response) => {
-                dispatch({
-                    type: UserTypes.CREATE_USERS_SUCCESS,
-                    data: response.data,
-                });
-                cb();
+                cb(response);
+                if(response.data.status===true){
+                    dispatch({
+                        type: UserTypes.CREATE_USERS_SUCCESS,
+                        data: response.data,
+                    });
+                }else{
+                    dispatch({
+                        type: UserTypes.CREATE_USERS_FAILURE,
+                        error: response.data.message,
+                    });
+                }
             })
             .catch((error) => {
                 dispatch({

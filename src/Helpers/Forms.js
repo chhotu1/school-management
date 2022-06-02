@@ -161,24 +161,18 @@ const Forms = {
         else if (!Regex.FULL_NAME_REGEX.test(value))
           return "Enter a valid name";
         else return "";
-      case "country":
-        if (!value) return "Country is Required";
+      case "password":
+        if (!value) return "Password is Required";
         else return "";
-      case "state":
-        if (!value) return "State is Required";
+      case "role":
+        if (!value) return "Role is Required";
         else return "";
-      case "city":
-        if (!value) return "City is Required";
+        case "phone":
+        if (!value) return "Phone is Required";
         else return "";
-      case "pincode":
-        if (!value) return "Pincode is Required";
-        else return "";
-      case "gender":
-        if (!value) return "Gender is Required";
-        else return "";
-      case "father_name":
-        if (!value) return "Father name is Required";
-        else return "";
+        case "gender":
+          if (!value) return "Gender is Required";
+          else return "";
       default:
         return "";
     }

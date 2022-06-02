@@ -35,6 +35,18 @@ async function add(req, res) {
     const data = await new Promise((resolve, reject) => {
         const form = new IncomingForm()
         form.parse(req, async(err, fields, files) => {
+            var userData = await User.findOne({
+                email:fields.email
+            });
+            if (userData) {
+                return res.json({
+                    message: "User Already Exists",
+                    status:false,
+                    data:[],
+                });
+            }
+
+
             if (err) return reject(err)
             let photo = '';
             if (files.photo) {

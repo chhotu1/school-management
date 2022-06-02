@@ -10,7 +10,7 @@ import { setUserDefaults,handleUserChange, createUser,checkUserValidation } from
 import Helpers from '../../../src/Helpers';
 import {buttonSpinner} from '../../../src/Share/CommonFunction'
 import withAuth from '../../../src/Share/withAuth';
-import Form from '../../../src/admin/components/user/Form';
+import Forms from '../../../src/admin/components/user/Forms';
 const Add = (props) => {
     const handleChange =(event)=>{
         if(event.target.name==='photo'){
@@ -21,6 +21,7 @@ const Add = (props) => {
             props.handleUserChange(event.target.name, event.target.value);
         }
     }
+    
     useEffect(()=>{
         props.setUserDefaults();
     },[])
@@ -38,12 +39,22 @@ const Add = (props) => {
         }
 
         
-        props.createUser(props.user.user, function () {
-            Router.push("/admin/user")
-            toast.success("New User Added Successfully", {
-              position: toast.POSITION.TOP_RIGHT,
-              theme: "colored",
-            })
+        props.createUser(props.user.user, function (response) {
+            if(response.data.status===true){
+                Router.push("/admin/user")
+                toast.success("New User Added Successfully", {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "colored",
+                })
+
+            }else{
+                toast.error(response.data.message, {
+                position: toast.POSITION.TOP_RIGHT,
+                theme: "colored",
+                })
+
+            }
+            
         });
     }
 
@@ -58,7 +69,7 @@ const Add = (props) => {
             <Grid item xs={12} lg={12}>
                 <BaseCard title="New User" backArrow="return">
                     <form onSubmit={handleSubmit}>
-                        <Form  handleChange={handleChange} formErrors={props.user.formError} user={props.user.user} countryhandleChange={countryhandleChange}/>
+                        <Forms  handleChange={handleChange} formErrors={props.user.formError} user={props.user.user} countryhandleChange={countryhandleChange}/>
                         <div className="col-auto">
                             {props.user.create_update_spinner?(
                                  <button type="button" className="btn btn-primary mb-3">{buttonSpinner(props.user.create_update_spinner)}</button>
