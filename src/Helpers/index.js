@@ -9,6 +9,7 @@ import StorageService from "./services/StorageServices";
 import StudentService from "./services/StudentService";
 import TeacherServices from "./services/TeacherServices";
 import FeeServices from "./services/FeeServices";
+import FeeTypeServices from "./services/FeeTypeServices";
 import Constant from "../Share/Constant";
 const STATUS ={
     ACTIVE:1,
@@ -29,7 +30,8 @@ const Helpers ={
     StudentService,
     TeacherServices,
     FeeServices,
-    Constant
+    Constant,
+    FeeTypeServices
 }
 
 

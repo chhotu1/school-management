@@ -55,13 +55,22 @@ function feeValidation(data) {
     return schema.validate(data,options)
 }
 
+function feeTypeValidation(data) {
+    const schema = Joi.object({
+        title: Joi.string().required(),
+        amount: Joi.number().integer().required(),
+    });
+    return schema.validate(data,options)
+}
+
 const Validation = {
     registerValidation,
     loginValidation,
     changePassword,
     roleValidation,
     sliderValidation,
-    feeValidation
+    feeValidation,
+    feeTypeValidation
 }
 export default Validation;
 

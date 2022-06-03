@@ -191,6 +191,20 @@ const Forms = {
       default:
         return "";
     }
+  },
+  feeTypeForm: (name, value) => {
+    switch (name) {
+      case "title":
+        if (!value) return "Title is Required";
+        else return "";
+      case "amount":
+        if (!value) return "Amount is Required";
+        // else if (!Regex.NUMERIC_REGEX.test(value))
+        // return "invalid amount";
+        else return "";
+      default:
+        return "";
+    }
   }
 
 };

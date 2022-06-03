@@ -25,6 +25,11 @@ const Menuitems = [
     href: "/student",
   },
   {
+    title: "Fee type",
+    icon: "dollar-sign",
+    href: "/fee-type",
+  },
+  {
     title: "Fee",
     icon: "dollar-sign",
     href: "/fee",

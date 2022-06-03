@@ -1,4 +1,5 @@
 import { Spinner } from "react-bootstrap";
+import Helpers from './../Helpers'
 function formateDate(date) {
   var event = new Date(date);
   const fullmonth = [
@@ -89,9 +90,9 @@ function CustomLoader() {
 
 function UserRole(role) {
   let access = [
-    {role:1,title:'Admin',access:'ADMIN'},
-    {role:2,title:'Teacher',access:'TEACHER'},
-    {role:3,title:'Student',access:'STUDENT'}
+    {role:Helpers.Constant.ADMIN,title:'Admin',access:'ADMIN'},
+    {role:Helpers.Constant.TEACHER,title:'Teacher',access:'TEACHER'},
+    {role:Helpers.Constant.STUDENT,title:'Student',access:'STUDENT'}
   ];
   let index = access.findIndex((e)=>e.role===role);
   if(index!==-1){
